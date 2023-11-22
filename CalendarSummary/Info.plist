@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSCalendarsFullAccessUsageDescription</key>
-	<string></string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>NSServices</key>
 	<array>
 		<dict/>

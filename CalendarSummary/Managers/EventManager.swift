@@ -35,6 +35,7 @@ fileprivate extension Logger {
     @Published var error: String = ""
 
     private let store = EKEventStore()
+    private var ready: Bool = false
 
     init() {}
 
@@ -51,28 +52,26 @@ fileprivate extension Logger {
         let status = EKEventStore.authorizationStatus(for: .event)
         
         switch status {
-        case .notDetermined:
-            // if #available(macOS 14.0, *) {
+        case .notDetermined, .restricted, .denied:
+            if #available(macOS 14.0, *) {
                 guard try await store.requestFullAccessToEvents() else {
                     throw EventError.accessDenied
                 }
-            // } else {
-            //     guard try await store.requestAccess(to: .event) else {
-            //         throw EventError.accessDenied
-            //     }
-            // }
-        case .restricted:
-            throw EventError.accessRestricted
-        case .denied:
-            throw EventError.accessDenied
+            } else {
+                guard try await store.requestAccess(to: .event) else {
+                    throw EventError.accessDenied
+                }
+            }
+            ready = true
         case .authorized:
-            return
+            ready = true
         default:
             throw EventError.unknown
         }
     }
     
     func fillCalendars() throws {
+        guard ready else { return }
         guard isAvailable else { throw EventError.accessDenied }
         
         let ref = UserDefaults.standard.string(forKey: "calendar")
@@ -89,8 +88,8 @@ fileprivate extension Logger {
     }
     
     func fillEvents () throws {
+        guard ready else { return }
         guard isAvailable else {
-            // return Logger.manager.error("\(EventError.accessDenied)")
             throw EventError.accessDenied
         }
 

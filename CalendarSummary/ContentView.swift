@@ -30,7 +30,7 @@ struct ContentView: View {
         )) {
             Alert( title: Text(manager.error) )
         }
-        .task {
+        .task { @MainActor in
             do {
                 try await manager.load()
             } catch {
