@@ -7,41 +7,44 @@
 
 import Foundation
 import EventKit
+import OSLog
+import SwiftUI
 
-class EventManager: ObservableObject {
-    static let shared = EventManager()
-    
+fileprivate extension Logger {
+    static let manager = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: "manager"
+    )
+}
+
+@MainActor class EventManager: ObservableObject {
     @Published private(set) var calendars: [Calendar] = []
     @Published private(set) var events: [Event] = []
     @Published private(set) var total: Int = 0
-    @Published var period = TimePeriod() {
-        didSet {
-            try? fillEvents()
-        }
-    }
-    
+    @Published var period = TimePeriod()
+
     @Published var calendar: Calendar? {
         didSet {
             UserDefaults.standard.set(
                 calendar?.ref.calendarIdentifier,
                 forKey: "calendar"
             )
-
-            try? fillEvents()
         }
     }
+
+    @Published var error: String = ""
 
     private let store = EKEventStore()
-    
-    init() {
-        Task {
-            try await requestAccess()
-            try await fillCalendars()
-        }
+
+    init() {}
+
+    func load() async throws {
+        try await requestAccess()
+        try fillCalendars()
     }
-    
+
     var isAvailable: Bool {
-        EKEventStore.authorizationStatus(for: .event) == .authorized
+        EKEventStore.authorizationStatus(for: .event) == .fullAccess
     }
     
     func requestAccess() async throws {
@@ -49,10 +52,15 @@ class EventManager: ObservableObject {
         
         switch status {
         case .notDetermined:
-            let granted = try await store.requestAccess(to: .event)
-            guard granted else {
-                throw EventError.accessDenied
-            }
+            // if #available(macOS 14.0, *) {
+                guard try await store.requestFullAccessToEvents() else {
+                    throw EventError.accessDenied
+                }
+            // } else {
+            //     guard try await store.requestAccess(to: .event) else {
+            //         throw EventError.accessDenied
+            //     }
+            // }
         case .restricted:
             throw EventError.accessRestricted
         case .denied:
@@ -64,7 +72,6 @@ class EventManager: ObservableObject {
         }
     }
     
-    @MainActor
     func fillCalendars() throws {
         guard isAvailable else { throw EventError.accessDenied }
         
@@ -81,9 +88,12 @@ class EventManager: ObservableObject {
         try fillEvents()
     }
     
-    func fillEvents() throws {
-        guard isAvailable else { throw EventError.accessDenied }
-        
+    func fillEvents () throws {
+        guard isAvailable else {
+            // return Logger.manager.error("\(EventError.accessDenied)")
+            throw EventError.accessDenied
+        }
+
         var calendars: [EKCalendar]?
         if let calendar = calendar { calendars = [calendar.ref] }
         else { calendars = nil }

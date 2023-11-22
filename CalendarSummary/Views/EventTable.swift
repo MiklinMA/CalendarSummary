@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct EventTable: View {
-    @StateObject var manager = EventManager.shared
+    @StateObject var manager: EventManager
     
     var body: some View {
         Table(manager.events) {

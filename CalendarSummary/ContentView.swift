@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var manager = EventManager.shared
+    @StateObject var manager: EventManager
+
+    init() {
+        let manager = EventManager()
+        _manager = StateObject(wrappedValue: manager)
+    }
 
     var body: some View {
         VStack {
@@ -18,6 +23,19 @@ struct ContentView: View {
             }
 
             EventTable(manager: manager)
+        }
+        .alert(isPresented: Binding(
+            get: { manager.error.isEmpty != true },
+            set: { _ in manager.error = String() }
+        )) {
+            Alert( title: Text(manager.error) )
+        }
+        .task {
+            do {
+                try await manager.load()
+            } catch {
+                manager.error = error.localizedDescription
+            }
         }
         .padding()
     }

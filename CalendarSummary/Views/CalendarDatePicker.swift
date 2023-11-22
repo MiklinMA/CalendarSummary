@@ -9,22 +9,29 @@ import SwiftUI
 
 
 struct CalendarDatePicker: View {
-    @StateObject var manager = EventManager.shared
+    @StateObject var manager: EventManager
 
     var body: some View {
         VStack {
-            HStack {
-                Text("Period")
-                // Toggle(isOn: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Is On@*/.constant(true)/*@END_MENU_TOKEN@*/) {
-                //     /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Label@*/Text("Label")/*@END_MENU_TOKEN@*/
-                // }
-                DatePicker("", selection: $manager.period.since, displayedComponents: [.date])
-                DatePicker("", selection: $manager.period.until, displayedComponents: [.date])
-            }
             Picker("Standard", selection: $manager.period.standard) {
                 ForEach(StandardPeriod.allCases) { p in
                     Text(p.rawValue.capitalized).tag(p)
                 }
+            }
+            if manager.period.standard == .custom {
+                HStack {
+                    Text("Period")
+                    DatePicker("", selection: $manager.period.since, displayedComponents: [.date])
+                    DatePicker("", selection: $manager.period.until, displayedComponents: [.date])
+                    Spacer()
+                }
+            }
+        }
+        .onReceive(manager.$period) { _ in
+            do {
+                try manager.fillEvents()
+            } catch {
+                manager.error = error.localizedDescription
             }
         }
     }
