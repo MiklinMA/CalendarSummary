@@ -67,29 +67,31 @@ extension Events {
     var total: Int {
         reduce(0) { $0 + $1.duration }
     }
-    mutating func updateExisting(event: Event) -> Bool {
-        if let index = firstIndex(of: event) {
-            self[index].children += event.children
-            self[index].children.sort()
-            self[index].duration += event.duration
-            return true
-        }
-        return false
-    }
-    mutating func append(ek: EKEvent) {
-        guard var event = Event(ek: ek) else { return }
+    mutating func append(_ immutable: Event) {
+        var event = immutable
 
         let (title, subtitle) = event.subtitle
+        event.title = title
+
         if !subtitle.isEmpty {
-            event.title = title
-            let child = Event(ek: ek, title: subtitle)
-            if event.children.updateExisting(event: child) == false {
-                event.children.append(child)
-            }
+            var child = event
+            child.title = "- " + subtitle
+            event.children.append(child)
         }
 
-        if updateExisting(event: event) == false {
-            append(event)
+        if let index = firstIndex(of: event) {
+            self[index].duration += event.duration
+            event.children.forEach { child in
+                self[index].children.append(child)
+            }
+        } else {
+            append(contentsOf: [event])
         }
+
+        sort()
+    }
+    mutating func append(_ ek: EKEvent) {
+        guard let event = Event(ek: ek) else { return }
+        append(event)
     }
 }

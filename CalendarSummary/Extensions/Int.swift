@@ -10,20 +10,19 @@ import Foundation
 
 extension Int {
     var asTimeString: String {
-        var seconds = self
-        guard seconds > 0
-        else { return "0:00" }
+        var minutes = self
+        guard minutes > 0 else { return "0:00" }
 
-        let hours = seconds / 3600
-        let minutes = (seconds % 3600) / 60
-        seconds %= 60
+        let days = minutes / 1440
+        let hours = (minutes % 1440) / 60
+        minutes %= 60
 
-        return if hours > 0 {
-            String(format: "%d:%02i:%02i", hours, minutes, seconds)
-        } else if minutes > 0 {
-            String(format: "%02i:%02i", minutes, seconds)
+        return if days > 0 {
+            String(format: "%d:%02i:%02i", days, hours, minutes)
+        } else if hours > 0 {
+            String(format: "%02i:%02i", hours, minutes)
         } else {
-            String(format: "0:%02i", seconds)
+            String(format: "0:%02i", minutes)
         }
     }
 }

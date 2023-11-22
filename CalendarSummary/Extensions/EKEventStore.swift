@@ -41,6 +41,6 @@ extension EKEventStore {
             calendars: calendars != nil ? calendars!.map { $0.ref } : nil
         )
         return events(matching: predicate)
-            .reduce(into: Events()) { $0.append(ek: $1) }
+            .reduce(into: Events()) { $0.append($1) }
     }
 }

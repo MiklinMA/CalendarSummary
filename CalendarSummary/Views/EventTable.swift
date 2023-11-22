@@ -13,35 +13,38 @@ struct TableEvent: Identifiable, Equatable {
     var expanded: Bool = false
     var children: [TableEvent]? = nil
 
-    var toplevel: Bool {
-        children != nil
-    }
-
-    var title: String {
-        toplevel
-        ? event.title
-        : " - \(event.title)"
+    var expandable: Bool {
+        children != nil && children!.count > 0
     }
 
     var weight: Font.Weight {
-        toplevel ? .regular : .thin
+        children != nil ? .regular : .light
+    }
+
+    var chevron: String {
+        expanded ? "chevron.down" : "chevron.left"
     }
 }
+
+typealias TableEvents = [TableEvent]
 
 struct EventTable: View {
     @StateObject var manager: EventManager
 
-    @State private var rows: [TableEvent] = []
+    @State private var rows: TableEvents = TableEvents()
 
     func reload(_ events: Events) {
+        var expanded = true
         rows = events.map { event in
-            TableEvent(
+            let e = TableEvent(
                 event: event,
-                expanded: true,
+                expanded: expanded,
                 children: event.children.map { child in
                     TableEvent(event: child)
                 }
             )
+            expanded = false
+            return e
         }
     }
 
@@ -53,8 +56,17 @@ struct EventTable: View {
                         Image(systemName: "circle.fill")
                             .foregroundStyle(row.event.color)
                     }
-                    Text(row.title)
+                    Text(row.event.title)
                         .fontWeight(row.weight)
+                    Spacer()
+                    if row.expandable {
+                        Image(systemName: "chevron.left")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 8)
+                            .rotationEffect(Angle(degrees: row.expanded ? -90 : 0 ))
+                            .animation(.easeIn(duration: 0.5), value: UUID())
+                    }
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
