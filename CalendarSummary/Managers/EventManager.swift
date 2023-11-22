@@ -13,27 +13,34 @@ import SwiftUI
 @MainActor class EventManager: ObservableObject {
     private var __calendar = UserDefaults.standard.string(forKey: "calendar")
 
-    @Published var period = TimePeriod()
+    @Published var period: TimePeriod { didSet { update() }}
     @Published var error: String = ""
     @Published var calendars: Calendars = Calendars()
     @Published var calendar: Calendar? { didSet {
         UserDefaults.standard.set(__calendar, forKey: "calendar")
+        update()
     }}
 
-    var events: Events {
-        EKEventStore.shared.events(
+    @Published var events: Events = []
+
+    init() {
+        period = TimePeriod()
+    }
+
+    func load() async throws {
+        guard try await EKEventStore.shared.requestAccess() else {
+            throw EventError.accessDenied
+        }
+        calendars = EKEventStore.shared.calendars
+        calendar = calendars.first(where: { $0.ref.calendarIdentifier == __calendar })
+        update()
+        objectWillChange.send()
+    }
+    func update() {
+        events = EKEventStore.shared.events(
             period: period,
             calendars: calendar != nil ? [calendar!] : nil
         ).sorted()
-    }
-
-    init() {}
-
-    func load() async throws {
-        try await EKEventStore.shared.requestAccess()
-        calendars = EKEventStore.shared.calendars
-        calendar = calendars.first(where: { $0.ref.calendarIdentifier == __calendar })
-        objectWillChange.send()
     }
 }
 

@@ -19,22 +19,14 @@ extension EKEventStore {
             Self.authorizationStatus(for: .event) == .authorized
         }
     }
-    func requestAccess() async throws {
-        switch Self.authorizationStatus(for: .event) {
-        case .notDetermined, .restricted, .denied:
+    func requestAccess() async throws -> Bool {
+        return if available { true }
+        else {
             if #available(macOS 14.0, *) {
-                guard try await requestFullAccessToEvents() else {
-                    throw EventError.accessDenied
-                }
+                try await requestFullAccessToEvents()
             } else {
-                guard try await requestAccess(to: .event) else {
-                    throw EventError.accessDenied
-                }
+                try await requestAccess(to: .event)
             }
-        case .authorized:
-            return
-        default:
-            throw EventError.unknown
         }
     }
     var calendars: Calendars {
@@ -48,26 +40,7 @@ extension EKEventStore {
             withStart: period.since, end: period.until,
             calendars: calendars != nil ? calendars!.map { $0.ref } : nil
         )
-
-        return events(matching: predicate).reduce(into: Events()) { result, event in
-            if event.isAllDay { return }
-
-            let title = event.title.trimmingCharacters(in: .whitespaces)
-            let url = event.url?.absoluteString ?? ""
-            
-            if let index = result.firstIndex(where: { $0.title == title }) {
-                result[index].duration += event.duration
-                return
-            }
-
-            result.append(
-                Event(
-                    title: title,
-                    duration: event.duration,
-                    url: url,
-                    calendar: event.calendar
-                )
-            )
-        }
+        return events(matching: predicate)
+            .reduce(into: Events()) { $0.append(ek: $1) }
     }
 }

@@ -7,20 +7,9 @@
 
 import Foundation
 import EventKit
-import OSLog
 
-// fileprivate extension Logger {
-//     static let calendar = Logger(
-//         subsystem: Bundle.main.bundleIdentifier!,
-//         category: "calendar"
-//     )
-// }
 
-struct Calendar: Identifiable, Hashable, Equatable {
-    static func == (lhs: Calendar, rhs: Calendar) -> Bool {
-        return lhs.ref.calendarIdentifier == rhs.ref.calendarIdentifier
-    }
-
+struct Calendar: Identifiable, Hashable {
     let id = UUID()
     let title: String
     let ref: EKCalendar
@@ -30,6 +19,13 @@ struct Calendar: Identifiable, Hashable, Equatable {
         self.ref = ek
     }
 }
+
+extension Calendar: Equatable {
+    static func == (lhs: Calendar, rhs: Calendar) -> Bool {
+        return lhs.ref.calendarIdentifier == rhs.ref.calendarIdentifier
+    }
+}
+
 
 typealias Calendars = [Calendar]
 extension Calendars {
