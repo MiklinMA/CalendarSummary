@@ -59,7 +59,7 @@ class EventManager: ObservableObject {
             throw EventError.accessDenied
         case .authorized:
             return
-        @unknown default:
+        default:
             throw EventError.unknown
         }
     }
@@ -100,19 +100,18 @@ class EventManager: ObservableObject {
             if event.isAllDay { continue }
             
             let title = event.title.trimmingCharacters(in: .whitespaces)
-            let duration = getDuration(event)
             let url = event.url?.absoluteString ?? ""
             
-            total += duration
-            
+            total += event.duration
+
             if let i = events.firstIndex(where: { $0.title == title }) {
-                events[i].duration += duration
+                events[i].duration += event.duration
                 continue
             }
             events.append(
                 Event(
                     title: title,
-                    duration: duration,
+                    duration: event.duration,
                     url: url,
                     calendar: event.calendar
                 )
@@ -121,9 +120,5 @@ class EventManager: ObservableObject {
         
         events.sort { $0.duration > $1.duration }
     }
-}
-
-extension EventList {
-    class Manager: EventManager {}
 }
 

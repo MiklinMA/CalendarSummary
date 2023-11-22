@@ -8,9 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var manager = EventManager.shared
+
     var body: some View {
-        EventList()
-            .padding()
+        VStack {
+            HStack {
+                CalendarPicker(manager: manager)
+                CalendarDatePicker(manager: manager)
+            }
+
+            EventTable(manager: manager)
+        }
+        .padding()
     }
 }
 
