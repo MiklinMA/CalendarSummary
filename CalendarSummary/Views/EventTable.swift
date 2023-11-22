@@ -15,9 +15,8 @@ struct EventTable: View {
         Table(manager.events) {
             TableColumn("Event") { row in Text(row.title) }
             
-            TableColumn(String(Double(manager.total) / 60) + " total") { row in
-                let hours = Double(row.duration) / 60
-                Text(String(hours))
+            TableColumn(manager.events.total.asTimeString + " total") { row in
+                Text(row.duration.asTimeString)
                     .foregroundColor(Color(row.calendar.color!))
             }.width(80)
         }

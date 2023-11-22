@@ -18,13 +18,6 @@ struct CalendarPicker: View {
                 Text(calendar.title).tag(calendar as Calendar?)
             }
         }
-        .onReceive(manager.$calendar) { _ in
-            do {
-                try manager.fillEvents()
-            } catch {
-                manager.error = error.localizedDescription
-            }
-        }
     }
 }
 

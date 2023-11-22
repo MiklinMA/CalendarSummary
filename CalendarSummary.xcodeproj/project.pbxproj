@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09147C802B0DD06A0051DF47 /* EKEventStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09147C7F2B0DD06A0051DF47 /* EKEventStore.swift */; };
+		09147C822B0DDE390051DF47 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09147C812B0DDE390051DF47 /* Double.swift */; };
+		09147C842B0DDEB30051DF47 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09147C832B0DDEB30051DF47 /* Int.swift */; };
 		0916A7082B0DB1F500B93E18 /* EKEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0916A7072B0DB1F500B93E18 /* EKEvent.swift */; };
 		0916A70A2B0DB33700B93E18 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0916A7092B0DB33700B93E18 /* Date.swift */; };
 		0916A70D2B0DB47000B93E18 /* StandardPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0916A70C2B0DB47000B93E18 /* StandardPeriod.swift */; };
@@ -46,6 +49,9 @@
 
 /* Begin PBXFileReference section */
 		09147C7E2B0DC5810051DF47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		09147C7F2B0DD06A0051DF47 /* EKEventStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKEventStore.swift; sourceTree = "<group>"; };
+		09147C812B0DDE390051DF47 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		09147C832B0DDEB30051DF47 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		0916A7072B0DB1F500B93E18 /* EKEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKEvent.swift; sourceTree = "<group>"; };
 		0916A7092B0DB33700B93E18 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0916A70C2B0DB47000B93E18 /* StandardPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardPeriod.swift; sourceTree = "<group>"; };
@@ -99,6 +105,9 @@
 			children = (
 				0916A7072B0DB1F500B93E18 /* EKEvent.swift */,
 				0916A7092B0DB33700B93E18 /* Date.swift */,
+				09147C7F2B0DD06A0051DF47 /* EKEventStore.swift */,
+				09147C812B0DDE390051DF47 /* Double.swift */,
+				09147C832B0DDEB30051DF47 /* Int.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -332,11 +341,14 @@
 				0916A70A2B0DB33700B93E18 /* Date.swift in Sources */,
 				0916A70D2B0DB47000B93E18 /* StandardPeriod.swift in Sources */,
 				0916A71A2B0DB5D000B93E18 /* EventTable.swift in Sources */,
+				09147C802B0DD06A0051DF47 /* EKEventStore.swift in Sources */,
 				0916A7112B0DB4AD00B93E18 /* EventError.swift in Sources */,
 				0916A70F2B0DB49100B93E18 /* TimePeriod.swift in Sources */,
 				0970CF3127F4EA0C00047920 /* EventManager.swift in Sources */,
 				095D707327F386E700248050 /* ContentView.swift in Sources */,
+				09147C822B0DDE390051DF47 /* Double.swift in Sources */,
 				095D707127F386E700248050 /* CalendarSummaryApp.swift in Sources */,
+				09147C842B0DDEB30051DF47 /* Int.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +437,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -481,7 +493,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -513,7 +525,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.olasoft.CalendarSummary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -545,7 +557,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.olasoft.CalendarSummary;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -27,12 +27,5 @@ struct CalendarDatePicker: View {
                 }
             }
         }
-        .onReceive(manager.$period) { _ in
-            do {
-                try manager.fillEvents()
-            } catch {
-                manager.error = error.localizedDescription
-            }
-        }
     }
 }
