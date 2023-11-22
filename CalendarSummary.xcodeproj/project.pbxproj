@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		095D707127F386E700248050 /* Calendar_SummaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D707027F386E700248050 /* Calendar_SummaryApp.swift */; };
+		095D707127F386E700248050 /* CalendarSummaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D707027F386E700248050 /* CalendarSummaryApp.swift */; };
 		095D707327F386E700248050 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D707227F386E700248050 /* ContentView.swift */; };
 		095D707527F386EB00248050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 095D707427F386EB00248050 /* Assets.xcassets */; };
 		095D707827F386EB00248050 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 095D707727F386EB00248050 /* Preview Assets.xcassets */; };
-		095D708327F386EB00248050 /* Calendar_SummaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D708227F386EB00248050 /* Calendar_SummaryTests.swift */; };
-		095D708D27F386EB00248050 /* Calendar_SummaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D708C27F386EB00248050 /* Calendar_SummaryUITests.swift */; };
-		095D708F27F386EB00248050 /* Calendar_SummaryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D708E27F386EB00248050 /* Calendar_SummaryUITestsLaunchTests.swift */; };
+		095D708327F386EB00248050 /* CalendarSummaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D708227F386EB00248050 /* CalendarSummaryTests.swift */; };
+		095D708D27F386EB00248050 /* CalendarSummaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D708C27F386EB00248050 /* CalendarSummaryUITests.swift */; };
+		095D708F27F386EB00248050 /* CalendarSummaryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D708E27F386EB00248050 /* CalendarSummaryUITestsLaunchTests.swift */; };
 		0970CF3127F4EA0C00047920 /* Managers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970CF3027F4EA0C00047920 /* Managers.swift */; };
 		09BAC11B282674EC0057CB30 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAC11A282674EC0057CB30 /* View.swift */; };
 		09BAC11D2826B7310057CB30 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAC11C2826B7310057CB30 /* Helpers.swift */; };
@@ -39,16 +39,16 @@
 
 /* Begin PBXFileReference section */
 		095D706D27F386E700248050 /* CalendarSummary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarSummary.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		095D707027F386E700248050 /* Calendar_SummaryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar_SummaryApp.swift; sourceTree = "<group>"; };
+		095D707027F386E700248050 /* CalendarSummaryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSummaryApp.swift; sourceTree = "<group>"; };
 		095D707227F386E700248050 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		095D707427F386EB00248050 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		095D707727F386EB00248050 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		095D707927F386EB00248050 /* Calendar_Summary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Calendar_Summary.entitlements; sourceTree = "<group>"; };
+		095D707927F386EB00248050 /* CalendarSummary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalendarSummary.entitlements; sourceTree = "<group>"; };
 		095D707E27F386EB00248050 /* CalendarSummaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalendarSummaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		095D708227F386EB00248050 /* Calendar_SummaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar_SummaryTests.swift; sourceTree = "<group>"; };
+		095D708227F386EB00248050 /* CalendarSummaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSummaryTests.swift; sourceTree = "<group>"; };
 		095D708827F386EB00248050 /* CalendarSummaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalendarSummaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		095D708C27F386EB00248050 /* Calendar_SummaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar_SummaryUITests.swift; sourceTree = "<group>"; };
-		095D708E27F386EB00248050 /* Calendar_SummaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar_SummaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		095D708C27F386EB00248050 /* CalendarSummaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSummaryUITests.swift; sourceTree = "<group>"; };
+		095D708E27F386EB00248050 /* CalendarSummaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSummaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0970CF3027F4EA0C00047920 /* Managers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managers.swift; sourceTree = "<group>"; };
 		09BAC11A282674EC0057CB30 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		09BAC11C2826B7310057CB30 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
@@ -83,9 +83,9 @@
 		095D706427F386E700248050 = {
 			isa = PBXGroup;
 			children = (
-				095D706F27F386E700248050 /* Calendar Summary */,
-				095D708127F386EB00248050 /* Calendar SummaryTests */,
-				095D708B27F386EB00248050 /* Calendar SummaryUITests */,
+				095D706F27F386E700248050 /* CalendarSummary */,
+				095D708127F386EB00248050 /* CalendarSummaryTests */,
+				095D708B27F386EB00248050 /* CalendarSummaryUITests */,
 				095D706E27F386E700248050 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,17 +100,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		095D706F27F386E700248050 /* Calendar Summary */ = {
+		095D706F27F386E700248050 /* CalendarSummary */ = {
 			isa = PBXGroup;
 			children = (
 				09BAC119282674B90057CB30 /* Events */,
-				095D707027F386E700248050 /* Calendar_SummaryApp.swift */,
+				095D707027F386E700248050 /* CalendarSummaryApp.swift */,
 				095D707227F386E700248050 /* ContentView.swift */,
 				095D707427F386EB00248050 /* Assets.xcassets */,
-				095D707927F386EB00248050 /* Calendar_Summary.entitlements */,
+				095D707927F386EB00248050 /* CalendarSummary.entitlements */,
 				095D707627F386EB00248050 /* Preview Content */,
 			);
-			path = "Calendar Summary";
+			path = CalendarSummary;
 			sourceTree = "<group>";
 		};
 		095D707627F386EB00248050 /* Preview Content */ = {
@@ -121,21 +121,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		095D708127F386EB00248050 /* Calendar SummaryTests */ = {
+		095D708127F386EB00248050 /* CalendarSummaryTests */ = {
 			isa = PBXGroup;
 			children = (
-				095D708227F386EB00248050 /* Calendar_SummaryTests.swift */,
+				095D708227F386EB00248050 /* CalendarSummaryTests.swift */,
 			);
-			path = "Calendar SummaryTests";
+			path = CalendarSummaryTests;
 			sourceTree = "<group>";
 		};
-		095D708B27F386EB00248050 /* Calendar SummaryUITests */ = {
+		095D708B27F386EB00248050 /* CalendarSummaryUITests */ = {
 			isa = PBXGroup;
 			children = (
-				095D708C27F386EB00248050 /* Calendar_SummaryUITests.swift */,
-				095D708E27F386EB00248050 /* Calendar_SummaryUITestsLaunchTests.swift */,
+				095D708C27F386EB00248050 /* CalendarSummaryUITests.swift */,
+				095D708E27F386EB00248050 /* CalendarSummaryUITestsLaunchTests.swift */,
 			);
-			path = "Calendar SummaryUITests";
+			path = CalendarSummaryUITests;
 			sourceTree = "<group>";
 		};
 		09BAC119282674B90057CB30 /* Events */ = {
@@ -284,7 +284,7 @@
 				09BAC11B282674EC0057CB30 /* View.swift in Sources */,
 				0970CF3127F4EA0C00047920 /* Managers.swift in Sources */,
 				095D707327F386E700248050 /* ContentView.swift in Sources */,
-				095D707127F386E700248050 /* Calendar_SummaryApp.swift in Sources */,
+				095D707127F386E700248050 /* CalendarSummaryApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				095D708327F386EB00248050 /* Calendar_SummaryTests.swift in Sources */,
+				095D708327F386EB00248050 /* CalendarSummaryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,8 +300,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				095D708D27F386EB00248050 /* Calendar_SummaryUITests.swift in Sources */,
-				095D708F27F386EB00248050 /* Calendar_SummaryUITestsLaunchTests.swift in Sources */,
+				095D708D27F386EB00248050 /* CalendarSummaryUITests.swift in Sources */,
+				095D708F27F386EB00248050 /* CalendarSummaryUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,11 +439,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Calendar Summary/Calendar_Summary.entitlements";
+				CODE_SIGN_ENTITLEMENTS = CalendarSummary/CalendarSummary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Calendar Summary/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "CalendarSummary/Preview\\ Content";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "$(PRODUCT_NAME) calendar events";
@@ -453,7 +453,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ru.olasoft.Calendar-SummaryTests";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.olasoft.CalendarSummary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -465,11 +465,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Calendar Summary/Calendar_Summary.entitlements";
+				CODE_SIGN_ENTITLEMENTS = CalendarSummary/CalendarSummary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Calendar Summary/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "CalendarSummary/Preview\\ Content";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "$(PRODUCT_NAME) calendar events";
@@ -479,7 +479,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ru.olasoft.Calendar-SummaryTests";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.olasoft.CalendarSummary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -497,7 +497,7 @@
 				INFOPLIST_KEY_NSCalendarsUsageDescription = AAAAAA;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ru.olasoft.Calendar-SummaryTests";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.olasoft.CalendarSummaryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -516,7 +516,7 @@
 				INFOPLIST_KEY_NSCalendarsUsageDescription = AAAAAA;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ru.olasoft.Calendar-SummaryTests";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.olasoft.CalendarSummaryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -532,11 +532,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ru.olasoft.Calendar-SummaryUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.olasoft.CalendarSummaryUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = "Calendar Summary";
+				TEST_TARGET_NAME = CalendarSummary;
 			};
 			name = Debug;
 		};
@@ -548,11 +548,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ru.olasoft.Calendar-SummaryUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.olasoft.CalendarSummaryUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = "Calendar Summary";
+				TEST_TARGET_NAME = CalendarSummary;
 			};
 			name = Release;
 		};
