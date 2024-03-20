@@ -4,6 +4,8 @@
 <dict>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>$(MARKETING_VERSION)</string>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>Please give access to Calendar via Apple Script.</string>
 	<key>NSServices</key>
 	<array>
 		<dict/>

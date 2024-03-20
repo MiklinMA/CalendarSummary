@@ -4,6 +4,13 @@
 //
 //  Created by Mike Miklin on 22.11.2023.
 //
+/* TODO:
+ * изменять события календаря из приложения
+ * - rename - определить подходящие события
+ * - переименовать в соответствии с children
+ * + открытие календаря с поиском по клику
+ */
+
 
 import SwiftUI
 
@@ -88,10 +95,10 @@ struct EventTable: View {
             }.width(80)
         } rows: {
             ForEach(rows, id: \.id) { row in
-                TableRow(row)
+                EventRow(row)
                 if row.expanded {
                     ForEach(row.children ?? []) { child in
-                        TableRow(child)
+                        EventRow(child)
                     }
                 }
             }

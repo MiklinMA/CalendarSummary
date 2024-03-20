@@ -10,12 +10,6 @@ import EventKit
 import OSLog
 import SwiftUI
 
-fileprivate extension Logger {
-    static let calendar = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
-        category: "calendar"
-    )
-}
 
 struct Event: Identifiable {
     let id = UUID()
@@ -24,6 +18,7 @@ struct Event: Identifiable {
     var url: String
     let calendar: EKCalendar
     let color: Color
+    let fullTitle: String
 
     var children: Events = Events()
 
@@ -36,6 +31,7 @@ struct Event: Identifiable {
     }
     init(ek: EKEvent, title: String) {
         self.title = title
+        self.fullTitle = title
         self.duration = ek.duration
         self.url = ek.url?.absoluteString ?? ""
         self.calendar = ek.calendar

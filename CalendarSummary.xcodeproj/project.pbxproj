@@ -27,6 +27,8 @@
 		095D708D27F386EB00248050 /* CalendarSummaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D708C27F386EB00248050 /* CalendarSummaryUITests.swift */; };
 		095D708F27F386EB00248050 /* CalendarSummaryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D708E27F386EB00248050 /* CalendarSummaryUITestsLaunchTests.swift */; };
 		0970CF3127F4EA0C00047920 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970CF3027F4EA0C00047920 /* EventManager.swift */; };
+		09AE9D1D2BAB3539000EE5E0 /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE9D1C2BAB3539000EE5E0 /* EventRow.swift */; };
+		09AE9D1F2BAB4A8E000EE5E0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE9D1E2BAB4A8E000EE5E0 /* Logger.swift */; };
 		09E3C9A927F4FCEC0097E293 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E3C9A827F4FCEC0097E293 /* Event.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +74,8 @@
 		095D708C27F386EB00248050 /* CalendarSummaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSummaryUITests.swift; sourceTree = "<group>"; };
 		095D708E27F386EB00248050 /* CalendarSummaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSummaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0970CF3027F4EA0C00047920 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
+		09AE9D1C2BAB3539000EE5E0 /* EventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRow.swift; sourceTree = "<group>"; };
+		09AE9D1E2BAB4A8E000EE5E0 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		09E3C9A827F4FCEC0097E293 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +112,7 @@
 				09147C7F2B0DD06A0051DF47 /* EKEventStore.swift */,
 				09147C812B0DDE390051DF47 /* Double.swift */,
 				09147C832B0DDEB30051DF47 /* Int.swift */,
+				09AE9D1E2BAB4A8E000EE5E0 /* Logger.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -130,6 +135,7 @@
 				0916A7152B0DB57D00B93E18 /* CalendarPicker.swift */,
 				0916A7172B0DB5B700B93E18 /* CalendarDatePicker.swift */,
 				0916A7192B0DB5D000B93E18 /* EventTable.swift */,
+				09AE9D1C2BAB3539000EE5E0 /* EventRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,7 +273,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					095D706C27F386E700248050 = {
 						CreatedOnToolsVersion = 13.3;
@@ -346,9 +352,11 @@
 				0916A70F2B0DB49100B93E18 /* TimePeriod.swift in Sources */,
 				0970CF3127F4EA0C00047920 /* EventManager.swift in Sources */,
 				095D707327F386E700248050 /* ContentView.swift in Sources */,
+				09AE9D1F2BAB4A8E000EE5E0 /* Logger.swift in Sources */,
 				09147C822B0DDE390051DF47 /* Double.swift in Sources */,
 				095D707127F386E700248050 /* CalendarSummaryApp.swift in Sources */,
 				09147C842B0DDEB30051DF47 /* Int.swift in Sources */,
+				09AE9D1D2BAB3539000EE5E0 /* EventRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -451,6 +460,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
