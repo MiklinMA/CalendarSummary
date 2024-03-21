@@ -19,22 +19,23 @@ struct EventTable: View {
     @ObservedObject var manager: EventManager
 
     var body: some View {
-        let _ = Self._printChanges()
+        // let _ = Self._printChanges()
         Table(of: Event.self) {
-            TableColumn("Event") {
-                EventColumnTitle(manager: manager, event: $0)
+            TableColumn("Event") { event in
+                Text(event.subtitle ?? "UNKNOWN")
+                    .fontWeight(event.expandable ? .regular : .light)
             }
-            TableColumn(manager.events.total.asTimeString + " total") {
-                EventColumnDuration(event: $0)
+            TableColumn(manager.events.total.asTimeString + " total") { event in
+                HStack {
+                    Spacer()
+                    Text(event.duration.asTimeString)
+                        .font(.system(.body, design: .monospaced))
+                        .fontWeight(event.expandable ? .regular : .light)
+                }
             }.width(80)
         } rows: {
-            ForEach(manager.events, id: \.id) { event in
+            OutlineGroup(manager.events, children: \._children) { event in
                 EventRow(event)
-                if event.expanded {
-                    ForEach(event.children) { child in
-                        EventRow(child)
-                    }
-                }
             }
         }
     }

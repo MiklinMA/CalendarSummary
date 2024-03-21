@@ -41,6 +41,7 @@ extension EKEventStore {
             calendars: calendars
         )
         return events(matching: predicate)
+            .compactMap { Event(ref: $0) }
             .reduce(into: Events()) { $0.append($1) }
     }
 }

@@ -49,14 +49,7 @@ struct EventRow: TableRowContent {
     }
 
     func showSearch() {
-        var pattern: String
-        if event.expandable {
-            pattern = event.title + "."
-        } else {
-            pattern = event.ref.title
-        }
-
-        let source = calendarFilterCmd(pattern: pattern)
+        let source = calendarFilterCmd(pattern: event.id)
         var error: NSDictionary?
         guard let script = NSAppleScript(source: source) else { return }
 
