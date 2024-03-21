@@ -32,7 +32,7 @@ import SwiftUI
             throw EventError.accessDenied
         }
         calendars = EKEventStore.shared.calendars
-        calendar = calendars.first(where: { $0.ref.calendarIdentifier == __calendar })
+        calendar = calendars.first(where: { $0.calendarIdentifier == __calendar })
         update()
         objectWillChange.send()
     }

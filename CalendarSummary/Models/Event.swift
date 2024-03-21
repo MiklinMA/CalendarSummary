@@ -16,7 +16,7 @@ struct Event: Identifiable {
     var title: String
     var duration: Int
     var url: String
-    let calendar: EKCalendar
+    let calendar: Calendar
     let color: Color
     let fullTitle: String
 

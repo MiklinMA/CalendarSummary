@@ -31,14 +31,14 @@ extension EKEventStore {
     }
     var calendars: Calendars {
         guard available else { return [] }
-        return calendars(for: .event).map { Calendar(ek: $0) }
+        return calendars(for: .event)
     }
     func events(period: TimePeriod, calendars: Calendars? = nil) -> Events {
         guard available else { return [] }
 
         let predicate = predicateForEvents(
             withStart: period.since, end: period.until,
-            calendars: calendars != nil ? calendars!.map { $0.ref } : nil
+            calendars: calendars
         )
         return events(matching: predicate)
             .reduce(into: Events()) { $0.append($1) }
