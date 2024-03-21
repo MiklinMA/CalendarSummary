@@ -10,37 +10,50 @@ import EventKit
 import SwiftUI
 
 
-@MainActor class EventManager: ObservableObject {
-    private var __calendar = UserDefaults.standard.string(forKey: "calendar")
+fileprivate extension UserDefaults {
+    var calendar: String {
+        get { string(forKey: "calendar") ?? "" }
+        set { set(newValue, forKey: "calendar") }
+    }
+}
 
+@MainActor class EventManager: ObservableObject {
     @Published var period: TimePeriod { didSet { update() }}
     @Published var error: String = ""
     @Published var calendars: Calendars = Calendars()
     @Published var calendar: Calendar? { didSet {
-        UserDefaults.standard.set(__calendar, forKey: "calendar")
+        defaults.calendar = calendar?.calendarIdentifier ?? ""
         update()
     }}
 
     @Published var events: Events = []
 
+    private var store: EKEventStore
+    private var defaults: UserDefaults
+
     init() {
         period = TimePeriod()
+        store = EKEventStore.shared
+        defaults = UserDefaults.standard
     }
 
     func load() async throws {
-        guard try await EKEventStore.shared.requestAccess() else {
+        guard try await self.store.requestAccess() else {
             throw EventError.accessDenied
         }
-        calendars = EKEventStore.shared.calendars
-        calendar = calendars.first(where: { $0.calendarIdentifier == __calendar })
+        calendars = self.store.calendars
+        calendar = self.calendars.first { $0.calendarIdentifier == defaults.calendar }
         update()
         objectWillChange.send()
     }
     func update() {
-        events = EKEventStore.shared.events(
+        events = self.store.events(
             period: period,
             calendars: calendar != nil ? [calendar!] : nil
         ).sorted()
+        guard let _ = events.first else { return }
+
+        events[0].expanded = true
     }
 }
 

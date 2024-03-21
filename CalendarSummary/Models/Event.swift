@@ -18,9 +18,12 @@ struct Event: Identifiable {
     var url: String
     let calendar: Calendar
     let color: Color
-    let fullTitle: String
+
+    let ref: EKEvent
 
     var children: Events = Events()
+    var expandable: Bool { children.count > 0 }
+    var expanded: Bool = false
 
     init?(ek: EKEvent) {
         if ek.isAllDay { return nil }
@@ -30,8 +33,9 @@ struct Event: Identifiable {
         )
     }
     init(ek: EKEvent, title: String) {
+        self.ref = ek
+
         self.title = title
-        self.fullTitle = title
         self.duration = ek.duration
         self.url = ek.url?.absoluteString ?? ""
         self.calendar = ek.calendar
@@ -57,6 +61,7 @@ extension Event: Comparable {
         lhs.duration > rhs.duration
     }
 }
+
 
 typealias Events = [Event]
 extension Events {

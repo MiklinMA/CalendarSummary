@@ -31,7 +31,7 @@ func calendarFilterCmd(pattern: String) -> String {
 }
 
 struct EventRow: TableRowContent {
-    typealias TableRowValue = TableEvent
+    typealias TableRowValue = Event
     typealias TableRowBody = TableRow
 
     let value: TableRowValue
@@ -40,12 +40,20 @@ struct EventRow: TableRowContent {
         self.value = value
     }
 
-    func action() {
+    var tableRowBody: some TableRowContent<TableRowValue> {
+        TableRow(value)
+            .contextMenu {
+                Button("Show calendar events") { self.showSearch() }
+                Button("Rename events") { self.renameEvents() }
+            }
+    }
+
+    func showSearch() {
         var pattern: String
-        if let _ = value.children {
-            pattern = value.event.title + ". "
+        if value.expandable {
+            pattern = value.title + "."
         } else {
-            pattern = value.event.fullTitle
+            pattern = value.ref.title
         }
 
         let source = calendarFilterCmd(pattern: pattern)
@@ -61,10 +69,8 @@ struct EventRow: TableRowContent {
         }
     }
 
-    var tableRowBody: some TableRowContent<TableRowValue> {
-        TableRow(value)
-            .contextMenu {
-                Button("Show calendar events") { action() }
-            }
+    func renameEvents() {
+        print(value)
+        return
     }
 }
