@@ -11,7 +11,8 @@ import SwiftUI
 
 struct EventColumnTitle: View {
     @ObservedObject var manager: EventManager
-    let event: Event
+    // @State var index
+    @State var event: Event
 
     var expanded: Bool {
         manager.events
@@ -25,7 +26,7 @@ struct EventColumnTitle: View {
                 Image(systemName: "circle.fill")
                     .foregroundStyle(event.color)
             }
-            Text(event.title)
+            Text(event.subtitle!)
                 .fontWeight(event.expandable ? .regular : .light)
             Spacer()
             if event.expandable {

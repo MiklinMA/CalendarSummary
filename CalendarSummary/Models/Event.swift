@@ -23,7 +23,8 @@ struct Event: Identifiable {
 
     var children: Events = Events()
     var expandable: Bool { children.count > 0 }
-    var expanded: Bool = false
+    var expanded: Bool = true
+    var level: Int = 0
 
     init?(ek: EKEvent) {
         if ek.isAllDay { return nil }
@@ -41,18 +42,37 @@ struct Event: Identifiable {
         self.calendar = ek.calendar
         self.color = Color(ek.calendar.color)
     }
-    var subtitle: (String, String) {
-        var subtitle = self.title.split(separator: ". ")
-        return (
-            subtitle.removeFirst().description,
-            subtitle.joined(separator: ". ")
-        )
+    // var subtitle: (String, String) {
+    //     var subtitle = self.title.split(separator: ". ")
+    //     return (
+    //         subtitle.removeFirst().description,
+    //         subtitle.joined(separator: ". ")
+    //     )
+    // }
+    var subtitle: String? {
+        guard let subtitle = self.title
+            .split(separator: ". ")
+            .dropFirst(level)
+            .first?
+            .description
+        else { return nil }
+        return String(repeating: "- ", count: level) + subtitle
+    }
+    var path: String {
+        self.title
+            .split(separator: ". ")[...level]
+            .joined(separator: ". ")
+    }
+    var hasChildren: Bool {
+        var e = self
+        e.level += 1
+        return e.subtitle != nil
     }
 }
 
 extension Event: Equatable {
     public static func == (lhs: Event, rhs: Event) -> Bool {
-        lhs.title == rhs.title
+        lhs.path == rhs.path
     }
 }
 
@@ -71,12 +91,9 @@ extension Events {
     mutating func append(_ immutable: Event) {
         var event = immutable
 
-        let (title, subtitle) = event.subtitle
-        event.title = title
-
-        if !subtitle.isEmpty {
+        if event.hasChildren {
             var child = event
-            child.title = "- " + subtitle
+            child.level += 1
             event.children.append(child)
         }
 
