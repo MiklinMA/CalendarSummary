@@ -18,13 +18,24 @@ import SwiftUI
 struct EventTable: View {
     @ObservedObject var manager: EventManager
 
+    @State private var selection = Set<Event.ID>()
+
+    @FocusState private var isRename: Bool
+
     var body: some View {
-        // let _ = Self._printChanges()
-        Table(of: Event.self) {
+        Table(of: Event.self, selection: $selection) {
             TableColumn("Event") { event in
-                Text(event.subtitle ?? "UNKNOWN")
-                    .fontWeight(event.expandable ? .regular : .light)
+                // Text(event.subtitle ?? "UNKNOWN")
+                //     .fontWeight(event.expandable ? .regular : .light)
+                TextField("",
+                    text: Binding(
+                        get: { event.subtitle },
+                        set: { event.subtitle = $0 }
+                    )
+                )
+                .focused($isRename)
             }
+
             TableColumn(manager.events.total.asTimeString + " total") { event in
                 HStack {
                     Spacer()
@@ -38,5 +49,6 @@ struct EventTable: View {
                 EventRow(event)
             }
         }
+        .renameAction($isRename)
     }
 }

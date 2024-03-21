@@ -45,6 +45,7 @@ struct EventRow: TableRowContent {
             .contextMenu {
                 Button("Show calendar events") { self.showSearch() }
                 Button("Rename events") { self.renameEvents() }
+                RenameButton()
             }
     }
 

@@ -8,10 +8,18 @@
 import Foundation
 import EventKit
 import SwiftUI
+import Combine
+import OSLog
 
 
-struct Event: Identifiable {
-    let ref: EKEvent
+class Event: ObservableObject, Identifiable {
+    var ref: EKEvent?
+
+    var url: String
+    var calendar: Calendar
+    @Published var title: String { didSet {
+        ref?.title = title
+    }}
 
     var _children: Events? {
         guard children.count > 0 else { return nil }
@@ -21,15 +29,38 @@ struct Event: Identifiable {
     var expandable: Bool { children.count > 0 }
     var level: Int = 0
 
+    @Published var subtitle: String
+    private var cancellables = Set<AnyCancellable>()
+
     init?(ref: EKEvent, level: Int = 0) {
         if ref.isAllDay { return nil }
 
         self.ref = ref
         self.level = level
 
-        guard let _ = subtitle else { return nil }
+        self.title = ref.title
+        self.url = ref.url?.absoluteString ?? ""
+        self.calendar = ref.calendar
 
-        guard let child else { return }
+        guard let subtitle = ref.title
+            .split(separator: ". ")
+            .dropFirst(level)
+            .first?
+            .description
+        else { return nil }
+
+        self.subtitle = subtitle
+
+        self.$subtitle
+            .dropFirst()
+            .debounce(for: 2, scheduler: RunLoop.main)
+            .sink { [weak self] in self?.rename($0) }
+            .store(in: &cancellables)
+
+        guard let child = Event(ref: ref, level: level + 1)
+        else { return }
+
+        self.ref = nil
         children.append(child)
     }
 
@@ -37,27 +68,40 @@ struct Event: Identifiable {
         self.title.split(separator: ". ")[...level]
             .joined(separator: ". ") + "."
     }
-    var subtitle: String? {
-        self.title
+
+    func rename(_ text: String, level: Int? = nil) {
+        let level = level ?? self.level
+
+        guard let ref else {
+            self.children.forEach { $0.rename(text, level: level) }
+            return
+        }
+
+        let head = self.title
+            .split(separator: ". ")[..<level]
+            .joined(separator: ". ")
+
+        let tail = self.title
             .split(separator: ". ")
-            .dropFirst(level)
-            .first?
-            .description
-    }
-    private var child: Event? {
-        return Event(ref: ref, level: level + 1)
+            .dropFirst(level + 1)
+            .joined(separator: ". ")
+
+        self.title = "\(head)\(text). \(tail)"
+        print("Title: \(head)\(text). \(tail)")
+
+        do {
+            try EKEventStore.shared.save(ref, span: .thisEvent, commit: true)
+        } catch {
+            Logger("event").error("\(error.localizedDescription)")
+        }
     }
 }
 
 extension Event {
-    var title: String { ref.title }
     var duration: Int {
-        if children.isEmpty { ref.duration }
-        else { children.reduce(0, { $0 + $1.duration }) }
+        ref?.duration ?? children.reduce(0, { $0 + $1.duration })
     }
-    var url: String { ref.url?.absoluteString ?? "" }
-    var calendar: Calendar { ref.calendar }
-    var color: Color { Color(ref.calendar.color) }
+    var color: Color { Color(calendar.color) }
 }
 
 

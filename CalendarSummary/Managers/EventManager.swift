@@ -50,7 +50,8 @@ fileprivate extension UserDefaults {
         events = self.store.events(
             period: period,
             calendars: calendar != nil ? [calendar!] : nil
-        ).sorted { $0.duration > $1.duration }
+        )
+        .sorted { $0.duration > $1.duration }
 
         guard let _ = events.first else { return }
     }
