@@ -26,7 +26,8 @@ fileprivate extension UserDefaults {
         update()
     }}
 
-    @Published var events: Events = []
+    // @Published var events: Events = []
+    var tree: Branch = Branch()
 
     private var store: EKEventStore
     private var defaults: UserDefaults
@@ -47,13 +48,14 @@ fileprivate extension UserDefaults {
         objectWillChange.send()
     }
     func update() {
-        events = self.store.events(
+        self.tree = Branch(leaves: self.store.events(
             period: period,
             calendars: calendar != nil ? [calendar!] : nil
-        )
-        .sorted { $0.duration > $1.duration }
+        ))
 
-        guard let _ = events.first else { return }
+        // .compactMap { Event(ref: $0) }
+        // .reduce(into: Events()) { $0.append($1) }
+        // .sorted { $0.duration > $1.duration }
     }
 }
 

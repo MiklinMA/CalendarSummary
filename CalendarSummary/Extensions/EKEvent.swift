@@ -9,7 +9,7 @@ import Foundation
 import EventKit
 
 
-extension EKEvent {
+extension EKEvent: Leaf {
     var duration: Int {
         NSCalendar.current.dateComponents(
             [.minute],

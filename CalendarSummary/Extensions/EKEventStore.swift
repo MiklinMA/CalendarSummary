@@ -8,7 +8,6 @@
 import Foundation
 import EventKit
 
-
 extension EKEventStore {
     static var shared = EKEventStore()
 
@@ -33,7 +32,7 @@ extension EKEventStore {
         guard available else { return [] }
         return calendars(for: .event)
     }
-    func events(period: TimePeriod, calendars: Calendars? = nil) -> Events {
+    func events(period: TimePeriod, calendars: Calendars? = nil) -> [EKEvent] {
         guard available else { return [] }
 
         let predicate = predicateForEvents(
@@ -41,7 +40,5 @@ extension EKEventStore {
             calendars: calendars
         )
         return events(matching: predicate)
-            .compactMap { Event(ref: $0) }
-            .reduce(into: Events()) { $0.append($1) }
     }
 }

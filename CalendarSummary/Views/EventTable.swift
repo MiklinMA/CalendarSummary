@@ -18,25 +18,14 @@ import SwiftUI
 struct EventTable: View {
     @ObservedObject var manager: EventManager
 
-    @State private var selection = Set<Event.ID>()
+    @State private var selection = Set<Branch.ID>()
 
-    @FocusState private var isRename: Bool
 
     var body: some View {
-        Table(of: Event.self, selection: $selection) {
-            TableColumn("Event") { event in
-                // Text(event.subtitle ?? "UNKNOWN")
-                //     .fontWeight(event.expandable ? .regular : .light)
-                TextField("",
-                    text: Binding(
-                        get: { event.subtitle },
-                        set: { event.subtitle = $0 }
-                    )
-                )
-                .focused($isRename)
-            }
+        Table(of: Branch.self, selection: $selection) {
+            TableColumn("Event") { event in TitleColumn(event: event) }
 
-            TableColumn(manager.events.total.asTimeString + " total") { event in
+            TableColumn(manager.tree.duration.asTimeString + " total") { event in
                 HStack {
                     Spacer()
                     Text(event.duration.asTimeString)
@@ -45,10 +34,31 @@ struct EventTable: View {
                 }
             }.width(80)
         } rows: {
-            OutlineGroup(manager.events, children: \._children) { event in
-                EventRow(event)
+            OutlineGroup(manager.tree.branches ?? [], children: \.branches) { branch in
+                EventRow(branch)
             }
         }
-        .renameAction($isRename)
     }
 }
+
+extension EventTable { private struct TitleColumn: View {
+    @FocusState private var isRename: Bool
+    @State var text: String
+    let event: Branch
+
+    init(event: Branch) {
+        self.event = event
+        self.text = event.title
+    }
+
+    var body: some View {
+        TextField("", text: $text)
+            .fontWeight(event.expandable ? .regular : .thin)
+            .focused($isRename)
+            .renameAction($isRename)
+            .onSubmit {
+                event.rename(text)
+                print(event.all.map {$0.title})
+            }
+    }
+}}

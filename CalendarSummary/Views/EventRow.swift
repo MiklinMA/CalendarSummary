@@ -31,7 +31,7 @@ func calendarFilterCmd(pattern: String) -> String {
 }
 
 struct EventRow: TableRowContent {
-    typealias TableRowValue = Event
+    typealias TableRowValue = Branch
     typealias TableRowBody = TableRow
 
     let event: TableRowValue
