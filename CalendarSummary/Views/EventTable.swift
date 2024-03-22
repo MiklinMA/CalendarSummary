@@ -19,10 +19,12 @@ struct EventTable: View {
     @ObservedObject var manager: EventManager
 
     @State private var selection = Set<Branch.ID>()
+    // TODO: sort won't work
+    @State private var sortOrder = [KeyPathComparator(\Branch.duration)]
 
 
     var body: some View {
-        Table(of: Branch.self, selection: $selection) {
+        Table(of: Branch.self, selection: $selection, sortOrder: $sortOrder) {
             TableColumn("Event") { event in TitleColumn(event: event) }
 
             TableColumn(manager.tree.duration.asTimeString + " total") { event in
@@ -34,9 +36,12 @@ struct EventTable: View {
                 }
             }.width(80)
         } rows: {
-            OutlineGroup(manager.tree.branches ?? [], children: \.branches) { branch in
+            OutlineGroup(manager.tree.branches, children: \.children) { branch in
                 EventRow(branch)
             }
+        }
+        .onChange(of: sortOrder) { _, sortOrder in
+            manager.tree.branches.sort(using: sortOrder)
         }
     }
 }

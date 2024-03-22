@@ -19,11 +19,14 @@ struct ContentView: View {
         VStack {
             HStack {
                 CalendarPicker(manager: manager)
-                CalendarDatePicker(manager: manager)
+                StandardDatePicker(manager: manager)
             }
+
+            CalendarDatePicker(manager: manager)
 
             EventTable(manager: manager)
         }
+        .frame(minWidth: 300, minHeight: 200)
         .alert(isPresented: Binding(
             get: { manager.error.isEmpty != true },
             set: { _ in manager.error = String() }

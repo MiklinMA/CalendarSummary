@@ -18,7 +18,7 @@ class Branch: Identifiable {
     var id: String
 
     var level: Int = 0
-    var branches: Branches! = []
+    var branches: Branches = []
     var parent: Branch!
     var leaves: Leaves = []
 
@@ -39,7 +39,8 @@ class Branch: Identifiable {
             branch.parent = self
             self.branches.append(unique: branch)
         } else {
-            self.branches = nil
+            // TODO: check this
+            // self.branches = nil
             self.leaves.append(leaf)
         }
     }
@@ -80,7 +81,8 @@ class Branch: Identifiable {
 
 extension Branch: Leaf {
     var duration: Int { self.all.reduce(0, { $0 + $1.duration }) }
-    var expandable: Bool { self.branches != nil }
+    var expandable: Bool { self.branches.count > 0 }
+    var children: Branches? { self.branches.count > 0 ? self.branches : nil }
 }
 
 typealias Branches = [Branch]
@@ -91,6 +93,7 @@ extension Branches {
             return append(contentsOf: [branch])
         }
 
+        // TODO: BOTH: Thread 1: Fatal error: Unexpectedly found nil while implicitly unwrapping an Optional value
         branch.branches.forEach { self[index].branches.append(unique: $0) }
         branch.leaves.forEach { self[index].leaves.append($0) }
     }

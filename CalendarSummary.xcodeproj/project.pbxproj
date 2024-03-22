@@ -138,6 +138,7 @@
 		0916A7142B0DB56D00B93E18 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				095D707227F386E700248050 /* ContentView.swift */,
 				0916A7152B0DB57D00B93E18 /* CalendarPicker.swift */,
 				0916A7172B0DB5B700B93E18 /* CalendarDatePicker.swift */,
 				0916A7192B0DB5D000B93E18 /* EventTable.swift */,
@@ -175,7 +176,6 @@
 				0916A7142B0DB56D00B93E18 /* Views */,
 				09BAC119282674B90057CB30 /* Managers */,
 				095D707027F386E700248050 /* CalendarSummaryApp.swift */,
-				095D707227F386E700248050 /* ContentView.swift */,
 				095D707427F386EB00248050 /* Assets.xcassets */,
 				095D707627F386EB00248050 /* Preview Content */,
 			);
