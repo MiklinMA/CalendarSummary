@@ -58,9 +58,10 @@ fileprivate extension UserDefaults {
         calendars = self.store.calendars
         calendar = self.calendars.first { $0.calendarIdentifier == defaults.calendar }
         update()
+        self.tree.branches.first?.expanded = true
     }
     func update() {
-        self.tree = Branch(leaves: self.store.events(
+        self.tree.update(leaves: self.store.events(
             period: period,
             calendars: calendar != nil ? [calendar!] : nil
         ))

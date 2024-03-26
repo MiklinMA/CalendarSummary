@@ -22,9 +22,8 @@ import OSLog
 struct EventTable: View {
     @ObservedObject var manager: EventManager
 
-    @State private var selection: Branch.ID? = nil
-
     @State private var showDelete: Bool = false
+    @State private var selection: Branch.ID? = nil
     @State private var selected: Branch? = nil
 
     var body: some View {
@@ -39,7 +38,7 @@ struct EventTable: View {
                 }
             }.width(80)
         } rows: {
-            OutlineGroup(manager.tree.branches, children: \.children) { branch in
+            ForEach(manager.tree.list) { branch in
                 TableRow(branch)
                     .contextMenu {
                         Button("Show events") { branch.showEvents() }
@@ -54,8 +53,8 @@ struct EventTable: View {
             }
         }
         .onDeleteCommand(perform: { showDelete = true })
-        .onChange(of: selection, { self.selected = self.manager.tree[$1] })
-        // .onChange(of: manager.tree) { manager.tree.sort(using: sortOrder) }
+        .onReceive(selection.publisher, perform: { self.selected = self.manager.tree[$0] })
+        .environmentObject(manager)
         .task { @MainActor in
             do { try await manager.load() }
             catch { manager.error = error.localizedDescription }
@@ -66,6 +65,7 @@ struct EventTable: View {
 extension EventTable { private struct EventColumn: View {
     @FocusState private var isRename: Bool
     @State var text: String
+    @EnvironmentObject var manager: EventManager
 
     let event: Branch
 
@@ -76,12 +76,26 @@ extension EventTable { private struct EventColumn: View {
 
     var body: some View {
         HStack {
+            ForEach((0..<event.level), id: \.self) { _ in Text(" ") }
+
+            if event.expandable {
+                Image(systemName: "chevron.right")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 8)
+                    .rotationEffect(Angle(degrees: event.expanded ? 90 : 0 ))
+                    .animation(.easeIn(duration: 0.1), value: UUID())
+                    .onTapGesture {
+                        manager.tree[event.id]?.expanded.toggle()
+                        manager.objectWillChange.send()
+                    }
+            }
             TextField("", text: $text)
-                .fontWeight(event.expandable ? .regular : .thin)
+                .fontWeight(event.expandable ? .regular : .light)
                 .focused($isRename)
                 .renameAction($isRename)
                 .onSubmit { event.rename(text) }
-
         }
     }
 }}
+

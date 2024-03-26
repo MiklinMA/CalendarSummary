@@ -24,6 +24,7 @@ class Branch: Identifiable, ObservableObject {
     var branches: Branches = []
     var parent: Branch! = nil
     var leaves: Leaves = []
+    var expanded: Bool = false
 
     var title: String!
 
@@ -50,15 +51,36 @@ class Branch: Identifiable, ObservableObject {
         self.level = -1
         self.title = "ROOT"
         self.update(leaves: leaves)
+        self.expanded = true
     }
-    func update(leaves: Leaves? = nil, level: Int = 0) {
-        let leaves = leaves ?? self.all
+    func update(leaves initial: Leaves? = nil, level: Int = 0) {
+        let leaves: Leaves
+        if let initial {
+            self.cleanLeaves()
+            leaves = initial
+        } else {
+            leaves = self.all
+        }
         leaves.forEach { leaf in
             guard let branch = Branch(leaf, level: level) else { return }
             branch.parent = self
             self.branches.append(unique: branch)
         }
+        self.cleanBranches()
         self.sort()
+        self.objectWillChange.send()
+    }
+    private func cleanLeaves() {
+        self.leaves.removeAll()
+        self.branches.forEach { $0.cleanLeaves() }
+    }
+    private func cleanBranches() {
+        self.branches = self.branches.compactMap {
+            guard $0.all.count > 0 else { return nil }
+
+            $0.cleanBranches()
+            return $0
+        }
     }
     func sort(using: [KeyPathComparator<Branch>] = [KeyPathComparator(\Branch.duration)]) {
         self.branches.forEach { $0.sort(using: using) }
@@ -80,8 +102,10 @@ class Branch: Identifiable, ObservableObject {
 extension Branch: Leaf {
     var duration: Int { self.all.reduce(0, { $0 + $1.duration }) }
     var expandable: Bool { self.branches.count > 0 }
-    var children: Branches? { self.branches.count > 0 ? self.branches : nil }
-
+    var list: Branches {
+        (self.level < 0 ? [] : [self]) +
+        (self.expanded ? self.branches.reduce([]) { $0 + $1.list } : [])
+    }
     func rename(_ title: String) {
         guard let parent else { return }
 
