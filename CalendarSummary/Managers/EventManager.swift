@@ -25,6 +25,7 @@ fileprivate extension UserDefaults {
         defaults.calendar = calendar?.calendarIdentifier ?? ""
         update()
     }}
+    @Published var showDelete: Bool = false
 
     // @Published var events: Events = []
     var tree: Branch = Branch()
@@ -52,9 +53,6 @@ fileprivate extension UserDefaults {
             period: period,
             calendars: calendar != nil ? [calendar!] : nil
         ))
-
-        // .compactMap { Event(ref: $0) }
-        // .reduce(into: Events()) { $0.append($1) }
         // .sorted { $0.duration > $1.duration }
     }
 }

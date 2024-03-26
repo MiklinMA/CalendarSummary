@@ -10,61 +10,18 @@ import SwiftUI
 import OSLog
 
 
-func calendarFilterCmd(pattern: String) -> String {
-    """
-    tell application "Calendar"
-        activate
-        tell window 0 to set visible to true
-        switch view to week view
-    end tell
-
-    delay 0.1
-
-    tell application "System Events"
-        tell process "Calendar"
-            keystroke "f" using {command down}
-            keystroke "title: \(pattern)"
-            keystroke return
-        end tell
-    end tell
-    """
-}
-
 struct EventRow: TableRowContent {
     typealias TableRowValue = Branch
     typealias TableRowBody = TableRow
 
     let event: TableRowValue
 
-    init(_ event: TableRowValue) {
-        self.event = event
-    }
-
     var tableRowBody: some TableRowContent<TableRowValue> {
         TableRow(event)
             .contextMenu {
-                Button("Show calendar events") { self.showSearch() }
-                Button("Rename events") { self.renameEvents() }
+                Button("Show events") { event.showSearch() }
                 RenameButton()
+                // Button("Delete") { manager.showDelete = true }
             }
-    }
-
-    func showSearch() {
-        let source = calendarFilterCmd(pattern: event.id)
-        var error: NSDictionary?
-        guard let script = NSAppleScript(source: source) else { return }
-
-        DispatchQueue.global(qos: .background).async {
-            script.executeAndReturnError(&error)
-            if let error,
-               let message: String = error["NSAppleScriptErrorMessage"] as? String {
-                Logger("event row").error("AppleScript: \(message)")
-            }
-        }
-    }
-
-    func renameEvents() {
-        print(event)
-        return
     }
 }

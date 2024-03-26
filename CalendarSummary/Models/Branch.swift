@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import OSLog
+import EventKit
 
 
 protocol Leaf {
@@ -58,24 +60,7 @@ class Branch: Identifiable {
         }
     }
     var all: Leaves {
-        return if self.leaves.isEmpty {
-            self.branches.reduce([]) { $0 + $1.all }
-        } else {
-            self.leaves
-        }
-    }
-
-    func rename(_ title: String) {
-        guard let parent else { return }
-
-        let leaves = self.all.map {
-            var leaf = $0
-            leaf.title.replace(title, position: level)
-            return leaf
-        }
-
-        parent.branches.removeAll { $0.id == self.id }
-        parent.update(leaves: leaves, level: self.level)
+        self.leaves + self.branches.reduce([]) { $0 + $1.all }
     }
 }
 
@@ -83,6 +68,55 @@ extension Branch: Leaf {
     var duration: Int { self.all.reduce(0, { $0 + $1.duration }) }
     var expandable: Bool { self.branches.count > 0 }
     var children: Branches? { self.branches.count > 0 ? self.branches : nil }
+
+    func rename(_ title: String) {
+        guard let parent else { return }
+
+        let leaves: [EKEvent] = self.all.compactMap {
+            guard let leaf = $0 as? EKEvent else { return nil }
+            leaf.title.replace(title, position: level)
+
+            do {
+                try EKEventStore.shared.save(leaf, span: .thisEvent, commit: true)
+            } catch {
+                Logger("event").error("\(error.localizedDescription)")
+            }
+            return leaf
+        }
+
+        parent.branches.removeAll { $0.id == self.id }
+        parent.update(leaves: leaves, level: self.level)
+    }
+    func delete() {
+        guard let parent else { return }
+
+        self.all.forEach {
+            guard let leaf = $0 as? EKEvent else { return }
+            do {
+                try EKEventStore.shared.remove(leaf, span: .thisEvent, commit: true)
+            } catch {
+                Logger("event").error("\(error.localizedDescription)")
+            }
+        }
+        parent.branches.removeAll { $0.id == self.id }
+    }
+    func showSearch() {
+        let source = AppleScript.calendarFilterCmd(pattern: self.id)
+        var error: NSDictionary?
+        guard let script = NSAppleScript(source: source) else { return }
+
+        DispatchQueue.global(qos: .background).async {
+            script.executeAndReturnError(&error)
+            if let error,
+               let message: String = error["NSAppleScriptErrorMessage"] as? String {
+                Logger("event row").error("AppleScript: \(message)")
+            }
+        }
+    }
+}
+extension Branch: Hashable {
+    public static func == (lhs: Branch, rhs: Branch) -> Bool { lhs.id == rhs.id }
+    public func hash(into hasher: inout Hasher) { hasher.combine(self.id) }
 }
 
 typealias Branches = [Branch]
