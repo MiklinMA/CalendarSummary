@@ -17,7 +17,8 @@ protocol Leaf {
 typealias Leaves = [Leaf]
 
 class Branch: Identifiable, ObservableObject {
-    var id: String
+    var id: String { path }
+    var path: String
 
     var level: Int = 0
     var branches: Branches = []
@@ -33,7 +34,7 @@ class Branch: Identifiable, ObservableObject {
               title.isEmpty == false
         else { return nil }
 
-        self.id = nodes[0...level].joined()
+        self.path = nodes[0...level].joined()
         self.title = title
         self.level = level
 
@@ -45,7 +46,7 @@ class Branch: Identifiable, ObservableObject {
         }
     }
     init(leaves: Leaves = []) {
-        self.id = "ROOT."
+        self.path = "ROOT."
         self.level = -1
         self.title = "ROOT"
         self.update(leaves: leaves)
@@ -113,7 +114,7 @@ extension Branch: Leaf {
         parent.branches.removeAll { $0.id == self.id }
     }
     func showEvents() {
-        let source = AppleScript.calendarFilterCmd(pattern: self.id)
+        let source = AppleScript.calendarFilterCmd(pattern: self.path)
         var error: NSDictionary?
         guard let script = NSAppleScript(source: source) else { return }
 
@@ -126,15 +127,11 @@ extension Branch: Leaf {
         }
     }
 }
-extension Branch: Hashable {
-    public static func == (lhs: Branch, rhs: Branch) -> Bool { lhs.id == rhs.id }
-    public func hash(into hasher: inout Hasher) { hasher.combine(self.id) }
-}
 
 typealias Branches = [Branch]
 extension Branches {
     mutating func append(unique branch: Branch) {
-        guard let index = firstIndex(where: { $0.id == branch.id })
+        guard let index = firstIndex(where: { $0.path == branch.path })
         else { return append(branch) }
 
         branch.branches.forEach { self[index].branches.append(unique: $0) }

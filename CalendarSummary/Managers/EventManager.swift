@@ -38,6 +38,17 @@ fileprivate extension UserDefaults {
         period = TimePeriod()
         store = EKEventStore.shared
         defaults = UserDefaults.standard
+
+        NotificationCenter.default.addObserver(
+            forName: .EKEventStoreChanged,
+            object: nil,
+            queue: nil
+        ) { [weak self] _ in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.update()
+            }
+        }
     }
 
     func load() async throws {
