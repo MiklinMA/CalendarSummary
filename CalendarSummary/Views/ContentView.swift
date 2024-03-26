@@ -17,14 +17,16 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            HStack {
-                CalendarPicker(manager: manager)
-                StandardDatePicker(manager: manager)
+            VStack {
+                HStack {
+                    CalendarPicker(manager: manager)
+                    StandardDatePicker(manager: manager)
+                }
+
+                CalendarDatePicker(manager: manager)
             }
-
-            CalendarDatePicker(manager: manager)
-
             EventTable(manager: manager)
+                .padding(.vertical, 5)
         }
         .frame(minWidth: 300, minHeight: 200)
         .alert(isPresented: Binding(
@@ -32,13 +34,6 @@ struct ContentView: View {
             set: { _ in manager.error = String() }
         )) {
             Alert( title: Text(manager.error) )
-        }
-        .task { @MainActor in
-            do {
-                try await manager.load()
-            } catch {
-                manager.error = error.localizedDescription
-            }
         }
         .padding()
     }

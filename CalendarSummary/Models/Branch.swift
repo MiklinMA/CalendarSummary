@@ -16,12 +16,12 @@ protocol Leaf {
 }
 typealias Leaves = [Leaf]
 
-class Branch: Identifiable {
+class Branch: Identifiable, ObservableObject {
     var id: String
 
     var level: Int = 0
     var branches: Branches = []
-    var parent: Branch!
+    var parent: Branch! = nil
     var leaves: Leaves = []
 
     var title: String!
@@ -41,8 +41,6 @@ class Branch: Identifiable {
             branch.parent = self
             self.branches.append(unique: branch)
         } else {
-            // TODO: check this
-            // self.branches = nil
             self.leaves.append(leaf)
         }
     }
@@ -52,12 +50,19 @@ class Branch: Identifiable {
         self.title = "ROOT"
         self.update(leaves: leaves)
     }
-    func update(leaves: Leaves, level: Int = 0) {
+    func update(leaves: Leaves? = nil, level: Int = 0) {
+        let leaves = leaves ?? self.all
         leaves.forEach { leaf in
             guard let branch = Branch(leaf, level: level) else { return }
             branch.parent = self
             self.branches.append(unique: branch)
         }
+        self.sort()
+    }
+    func sort(using: [KeyPathComparator<Branch>] = [KeyPathComparator(\Branch.duration)]) {
+        self.branches.forEach { $0.sort(using: using) }
+        self.branches.sort(using: using)
+        objectWillChange.send()
     }
     var all: Leaves {
         self.leaves + self.branches.reduce([]) { $0 + $1.all }
@@ -107,7 +112,7 @@ extension Branch: Leaf {
         }
         parent.branches.removeAll { $0.id == self.id }
     }
-    func showSearch() {
+    func showEvents() {
         let source = AppleScript.calendarFilterCmd(pattern: self.id)
         var error: NSDictionary?
         guard let script = NSAppleScript(source: source) else { return }
@@ -130,11 +135,8 @@ typealias Branches = [Branch]
 extension Branches {
     mutating func append(unique branch: Branch) {
         guard let index = firstIndex(where: { $0.id == branch.id })
-        else {
-            return append(contentsOf: [branch])
-        }
+        else { return append(branch) }
 
-        // TODO: BOTH: Thread 1: Fatal error: Unexpectedly found nil while implicitly unwrapping an Optional value
         branch.branches.forEach { self[index].branches.append(unique: $0) }
         branch.leaves.forEach { self[index].leaves.append($0) }
     }

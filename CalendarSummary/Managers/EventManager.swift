@@ -25,10 +25,11 @@ fileprivate extension UserDefaults {
         defaults.calendar = calendar?.calendarIdentifier ?? ""
         update()
     }}
-    @Published var showDelete: Bool = false
+    @Published var sortOrder = [KeyPathComparator(\Branch.duration, order: .reverse)] { didSet {
+        self.tree.sort(using: sortOrder)
+    }}
 
-    // @Published var events: Events = []
-    var tree: Branch = Branch()
+    @Published var tree: Branch! = Branch()
 
     private var store: EKEventStore
     private var defaults: UserDefaults
@@ -46,14 +47,14 @@ fileprivate extension UserDefaults {
         calendars = self.store.calendars
         calendar = self.calendars.first { $0.calendarIdentifier == defaults.calendar }
         update()
-        objectWillChange.send()
     }
     func update() {
         self.tree = Branch(leaves: self.store.events(
             period: period,
             calendars: calendar != nil ? [calendar!] : nil
         ))
-        // .sorted { $0.duration > $1.duration }
+        self.tree.sort(using: sortOrder)
+        objectWillChange.send()
     }
 }
 

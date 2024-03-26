@@ -30,7 +30,6 @@
 		09A4A7E82BAD9B0400ADBF77 /* Branch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A4A7E72BAD9B0400ADBF77 /* Branch.swift */; };
 		09A4A7EA2BAD9B3900ADBF77 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A4A7E92BAD9B3900ADBF77 /* String.swift */; };
 		09A9A9892BB2B6FA0051AB27 /* AppleScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A9A9882BB2B6FA0051AB27 /* AppleScript.swift */; };
-		09AE9D1D2BAB3539000EE5E0 /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE9D1C2BAB3539000EE5E0 /* EventRow.swift */; };
 		09AE9D1F2BAB4A8E000EE5E0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE9D1E2BAB4A8E000EE5E0 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,7 +78,6 @@
 		09A4A7E72BAD9B0400ADBF77 /* Branch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
 		09A4A7E92BAD9B3900ADBF77 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		09A9A9882BB2B6FA0051AB27 /* AppleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScript.swift; sourceTree = "<group>"; };
-		09AE9D1C2BAB3539000EE5E0 /* EventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRow.swift; sourceTree = "<group>"; };
 		09AE9D1E2BAB4A8E000EE5E0 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,7 +140,6 @@
 				0916A7152B0DB57D00B93E18 /* CalendarPicker.swift */,
 				0916A7172B0DB5B700B93E18 /* CalendarDatePicker.swift */,
 				0916A7192B0DB5D000B93E18 /* EventTable.swift */,
-				09AE9D1C2BAB3539000EE5E0 /* EventRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -364,7 +361,6 @@
 				09147C822B0DDE390051DF47 /* Double.swift in Sources */,
 				095D707127F386E700248050 /* CalendarSummaryApp.swift in Sources */,
 				09147C842B0DDEB30051DF47 /* Int.swift in Sources */,
-				09AE9D1D2BAB3539000EE5E0 /* EventRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
