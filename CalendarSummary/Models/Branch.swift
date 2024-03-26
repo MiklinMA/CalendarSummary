@@ -62,6 +62,13 @@ class Branch: Identifiable {
     var all: Leaves {
         self.leaves + self.branches.reduce([]) { $0 + $1.all }
     }
+    subscript (_ id: String?) -> Branch? {
+        for branch in self.branches {
+            if branch.id == id { return branch }
+            if let branch = branch[id] { return branch }
+        }
+        return nil
+    }
 }
 
 extension Branch: Leaf {

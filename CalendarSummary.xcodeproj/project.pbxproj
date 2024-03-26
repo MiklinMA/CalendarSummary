@@ -32,7 +32,6 @@
 		09A9A9892BB2B6FA0051AB27 /* AppleScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A9A9882BB2B6FA0051AB27 /* AppleScript.swift */; };
 		09AE9D1D2BAB3539000EE5E0 /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE9D1C2BAB3539000EE5E0 /* EventRow.swift */; };
 		09AE9D1F2BAB4A8E000EE5E0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AE9D1E2BAB4A8E000EE5E0 /* Logger.swift */; };
-		09E3C9A927F4FCEC0097E293 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E3C9A827F4FCEC0097E293 /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +81,6 @@
 		09A9A9882BB2B6FA0051AB27 /* AppleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScript.swift; sourceTree = "<group>"; };
 		09AE9D1C2BAB3539000EE5E0 /* EventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRow.swift; sourceTree = "<group>"; };
 		09AE9D1E2BAB4A8E000EE5E0 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		09E3C9A827F4FCEC0097E293 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +130,6 @@
 				0916A70E2B0DB49100B93E18 /* TimePeriod.swift */,
 				0916A7102B0DB4AD00B93E18 /* EventError.swift */,
 				0916A7122B0DB4D200B93E18 /* Calendar.swift */,
-				09E3C9A827F4FCEC0097E293 /* Event.swift */,
 				09A4A7E72BAD9B0400ADBF77 /* Branch.swift */,
 			);
 			path = Models;
@@ -353,7 +350,6 @@
 				09A9A9892BB2B6FA0051AB27 /* AppleScript.swift in Sources */,
 				09A4A7EA2BAD9B3900ADBF77 /* String.swift in Sources */,
 				0916A7082B0DB1F500B93E18 /* EKEvent.swift in Sources */,
-				09E3C9A927F4FCEC0097E293 /* Event.swift in Sources */,
 				0916A7162B0DB57D00B93E18 /* CalendarPicker.swift in Sources */,
 				0916A70A2B0DB33700B93E18 /* Date.swift in Sources */,
 				0916A70D2B0DB47000B93E18 /* StandardPeriod.swift in Sources */,
