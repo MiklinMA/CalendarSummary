@@ -72,3 +72,5 @@ jobs:
           xcodebuild -exportArchive
           -archivePath "dist/${{ github.event.repository.name }}.xcarchive"
           -exportOptionsPlist ExportOptions.plist
+          -exportPath dist/
+          -allowProvisioningUpdates
