@@ -9,7 +9,7 @@ import Foundation
 
 
 extension ProcessInfo {
-    var isSandboxed: Bool {
-        ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"] != nil
+    static var isSandboxed: Bool {
+        processInfo.environment["APP_SANDBOX_CONTAINER_ID"] != nil
     }
 }

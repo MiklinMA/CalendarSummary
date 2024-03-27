@@ -9,7 +9,9 @@ import Foundation
 import OSLog
 import EventKit
 
-
+fileprivate extension Logger {
+    static var branch = Logger("branch")
+}
 protocol Leaf {
     var title: String! { get set }
     var duration: Int { get }
@@ -115,9 +117,11 @@ extension Branch: Leaf {
 
             do {
                 try EKEventStore.shared.save(leaf, span: .thisEvent, commit: true)
+                Logger.branch.debug("Rename: \($0.title) -> \(leaf.title)")
             } catch {
-                Logger("event").error("\(error.localizedDescription)")
+                Logger.branch.error("\(error.localizedDescription)")
             }
+
             return leaf
         }
 
@@ -131,8 +135,9 @@ extension Branch: Leaf {
             guard let leaf = $0 as? EKEvent else { return }
             do {
                 try EKEventStore.shared.remove(leaf, span: .thisEvent, commit: true)
+                Logger.branch.debug("Delete: \($0.title)")
             } catch {
-                Logger("event").error("\(error.localizedDescription)")
+                Logger.branch.error("\(error.localizedDescription)")
             }
         }
         parent.branches.removeAll { $0.id == self.id }
@@ -146,7 +151,9 @@ extension Branch: Leaf {
             script.executeAndReturnError(&error)
             if let error,
                let message: String = error["NSAppleScriptErrorMessage"] as? String {
-                Logger("event row").error("AppleScript: \(message)")
+                Logger.branch.error("AppleScript: \(message)")
+            } else {
+                Logger.branch.debug("Show events: \(self.path.dropLastSeparator)")
             }
         }
     }
