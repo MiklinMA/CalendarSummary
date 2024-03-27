@@ -9,16 +9,16 @@ import Foundation
 
 
 struct TimePeriod {
-    var since: Date {
-        didSet {
-            UserDefaults.standard.set(since, forKey: "since")
-        }
+    var description: String {
+        if standard == .custom { "\(since) \(until)" }
+        else { standard.rawValue }
     }
-    var until: Date {
-        didSet {
-            UserDefaults.standard.set(until, forKey: "until")
-        }
-    }
+    var since: Date { didSet {
+        UserDefaults.standard.set(since, forKey: "since")
+    }}
+    var until: Date { didSet {
+        UserDefaults.standard.set(until, forKey: "until")
+    }}
     var standard: StandardPeriod {
         didSet {
             UserDefaults.standard.set(standard.rawValue, forKey: "standard")
@@ -54,3 +54,8 @@ struct TimePeriod {
     }
 }
 
+extension TimePeriod: Equatable {
+    static func ==(lhs: TimePeriod, rhs: TimePeriod) -> Bool {
+        lhs.since == rhs.since && lhs.until == rhs.until
+    }
+}

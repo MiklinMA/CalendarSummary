@@ -32,13 +32,13 @@ extension EKEventStore {
         guard available else { return [] }
         return calendars(for: .event)
     }
-    func events(period: TimePeriod, calendars: Calendars? = nil) -> [EKEvent] {
+    func events(_ period: TimePeriod, _ calendar: Calendar? = nil) -> [EKEvent] {
         guard available else { return [] }
 
         let predicate = predicateForEvents(
             withStart: period.since, end: period.until,
-            calendars: calendars
+            calendars: calendar != nil ? [calendar!] : nil
         )
-        return events(matching: predicate)
+        return events(matching: predicate).filter { $0.isAllDay == false }
     }
 }

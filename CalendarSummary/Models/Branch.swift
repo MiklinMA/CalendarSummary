@@ -9,9 +9,8 @@ import Foundation
 import OSLog
 import EventKit
 
-fileprivate extension Logger {
-    static var branch = Logger("branch")
-}
+fileprivate extension Logger { static var branch = Logger("branch") }
+
 protocol Leaf {
     var title: String! { get set }
     var duration: Int { get }
@@ -23,7 +22,7 @@ class Branch: Identifiable, ObservableObject {
     var path: String
 
     var level: Int = 0
-    var branches: Branches = []
+    @Published var branches: Branches = []
     var parent: Branch! = nil
     var leaves: Leaves = []
     var expanded: Bool = false
@@ -47,13 +46,15 @@ class Branch: Identifiable, ObservableObject {
         } else {
             self.leaves.append(leaf)
         }
+        // Logger.branch.info("Init: \(self.path)")
     }
-    init(leaves: Leaves = []) {
+    init() {
         self.path = "ROOT."
         self.level = -1
         self.title = "ROOT"
-        self.update(leaves: leaves)
         self.expanded = true
+
+        Logger.branch.info("Init: \(self.path)")
     }
     func update(leaves initial: Leaves? = nil, level: Int = 0) {
         let leaves: Leaves
@@ -63,36 +64,55 @@ class Branch: Identifiable, ObservableObject {
         } else {
             leaves = self.all
         }
+
+        Logger.branch.debug(
+            "Update: \(leaves.map { "\($0.title ?? ""): \($0.duration.description) min" }.description)"
+        )
+
         leaves.forEach { leaf in
             guard let branch = Branch(leaf, level: level) else { return }
             branch.parent = self
             self.branches.append(unique: branch)
         }
         self.cleanBranches()
-        self.sort()
         self.objectWillChange.send()
     }
-    private func cleanLeaves() {
+    private func cleanLeaves(_ debug: Bool = true) {
+        if debug {
+            Logger.branch.debug("Clean leaves: \(self.path)")
+        }
         self.leaves.removeAll()
-        self.branches.forEach { $0.cleanLeaves() }
+        self.branches.forEach { $0.cleanLeaves(false) }
     }
     private func cleanBranches() {
         self.branches = self.branches.compactMap {
-            guard $0.all.count > 0 else { return nil }
+            guard $0.all.count > 0 else {
+                Logger.branch.debug("Remove branch: \($0.path)")
+                return nil
+            }
 
             $0.cleanBranches()
             return $0
         }
     }
-    func sort(using: [KeyPathComparator<Branch>] = [KeyPathComparator(\Branch.duration)]) {
-        self.branches.forEach { $0.sort(using: using) }
+    func sort(using: [KeyPathComparator<Branch>] = [KeyPathComparator(\Branch.duration)],
+              debug: Bool = true) {
+        if debug {
+            Logger.branch.debug("Sort: \(self.path)")
+        }
+
+        self.branches.forEach { $0.sort(using: using, debug: false) }
         self.branches.sort(using: using)
         objectWillChange.send()
     }
     var all: Leaves {
-        self.leaves + self.branches.reduce([]) { $0 + $1.all }
+        // Logger.branch.debug("All: \(self.path)")
+
+        return self.leaves + self.branches.reduce([]) { $0 + $1.all }
     }
     subscript (_ id: String?) -> Branch? {
+        Logger.branch.debug("Subscript: \(self.path)")
+
         for branch in self.branches {
             if branch.id == id { return branch }
             if let branch = branch[id] { return branch }
@@ -117,7 +137,7 @@ extension Branch: Leaf {
 
             do {
                 try EKEventStore.shared.save(leaf, span: .thisEvent, commit: true)
-                Logger.branch.debug("Rename: \($0.title) -> \(leaf.title)")
+                Logger.branch.debug("Rename: \(leaf.title)")
             } catch {
                 Logger.branch.error("\(error.localizedDescription)")
             }
@@ -163,10 +183,15 @@ typealias Branches = [Branch]
 extension Branches {
     mutating func append(unique branch: Branch) {
         guard let index = firstIndex(where: { $0.path == branch.path })
-        else { return append(branch) }
+        else {
+            // Logger.branch.debug("Append: \(branch.path)")
+            return append(branch)
+        }
 
-        branch.branches.forEach { self[index].branches.append(unique: $0) }
-        branch.leaves.forEach { self[index].leaves.append($0) }
+        let found = self[index]
+        // Logger.branch.debug("Found: \(found.path)")
+        branch.branches.forEach { found.branches.append(unique: $0) }
+        branch.leaves.forEach { found.leaves.append($0) }
     }
 }
 

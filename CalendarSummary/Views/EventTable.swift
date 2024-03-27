@@ -38,7 +38,6 @@ struct EventTable: View {
         .confirmationDialog("Are you sure?", isPresented: $showDelete) {
             Button("Delete") {
                 selected?.delete()
-                manager.update()
             }
         }
         .onDeleteCommand(perform: { showDelete = true })
