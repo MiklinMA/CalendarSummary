@@ -55,7 +55,7 @@ extension EventTable { private struct EventColumn: View {
     @State var text: String
     @EnvironmentObject var manager: EventManager
 
-    let event: Branch
+    @ObservedObject var event: Branch
 
     init(event: Branch) {
         self.event = event
@@ -88,7 +88,7 @@ extension EventTable { private struct EventColumn: View {
 }}
 
 extension EventTable { private struct DurationColumn: View {
-    let event: Branch
+    @ObservedObject var event: Branch
 
     var body: some View {
         HStack {

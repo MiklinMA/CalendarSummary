@@ -124,6 +124,7 @@ class Branch: Identifiable, ObservableObject {
 extension Branch: Leaf {
     var duration: Int { self.all.reduce(0, { $0 + $1.duration }) }
     var expandable: Bool { self.branches.count > 0 }
+    // var children: Branches? { self.branches.count > 0 ? self.branches : nil }
     var list: Branches {
         (self.level < 0 ? [] : [self]) +
         (self.expanded ? self.branches.reduce([]) { $0 + $1.list } : [])
