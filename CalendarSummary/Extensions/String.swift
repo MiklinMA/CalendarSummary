@@ -28,6 +28,13 @@ extension String {
         nodes[position] = Substring(string)
         self = nodes.joined(separator: separator)
     }
+    var dropLastSeparator: String {
+        if last?.description == separator.trim() {
+            dropLast(1).description
+        } else {
+            self
+        }
+    }
 }
 
 extension ArraySlice where Element : StringProtocol {

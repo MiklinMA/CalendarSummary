@@ -27,24 +27,13 @@ struct EventTable: View {
     @State private var selected: Branch? = nil
 
     var body: some View {
-        Table(of: Branch.self, selection: $selection, sortOrder: $manager.sortOrder) {
-            TableColumn("Event", value: \.title) { event in EventColumn(event: event) }
-            TableColumn(manager.tree.duration.asTimeString, value: \.duration) { event in
-                HStack {
-                    Spacer()
-                    Text(event.duration.asTimeString)
-                        .font(.system(.body, design: .monospaced))
-                        .fontWeight(event.expandable ? .regular : .light)
-                }
-            }.width(80)
-        } rows: {
-            ForEach(manager.tree.list) { branch in
-                TableRow(branch)
-                    .contextMenu {
-                        Button("Show events") { branch.showEvents() }
-                        Button("Delete") { showDelete = true }
-                    }
+        Table(manager.tree.list, selection: $selection, sortOrder: $manager.sortOrder) {
+            TableColumn("Event", value: \.title) { event in
+                EventColumn(event: event)
             }
+            TableColumn(manager.tree.duration.asTimeString, value: \.duration) { event in
+                DurationColumn(event: event)
+            }.width(80)
         }
         .confirmationDialog("Are you sure?", isPresented: $showDelete) {
             Button("Delete") {
@@ -99,3 +88,22 @@ extension EventTable { private struct EventColumn: View {
     }
 }}
 
+extension EventTable { private struct DurationColumn: View {
+    let event: Branch
+
+    var body: some View {
+        HStack {
+            if !ProcessInfo.processInfo.isSandboxed {
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 8)
+                    .onTapGesture { event.showEvents() }
+            }
+            Spacer()
+            Text(event.duration.asTimeString)
+                .font(.system(.body, design: .monospaced))
+                .fontWeight(event.expandable ? .regular : .light)
+        }
+    }
+}}

@@ -138,7 +138,7 @@ extension Branch: Leaf {
         parent.branches.removeAll { $0.id == self.id }
     }
     func showEvents() {
-        let source = AppleScript.calendarFilterCmd(pattern: self.path)
+        let source = AppleScript.calendarFilterCmd(pattern: self.path.dropLastSeparator)
         var error: NSDictionary?
         guard let script = NSAppleScript(source: source) else { return }
 

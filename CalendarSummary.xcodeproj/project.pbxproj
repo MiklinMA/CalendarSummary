@@ -20,6 +20,7 @@
 		0916A7182B0DB5B700B93E18 /* CalendarDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0916A7172B0DB5B700B93E18 /* CalendarDatePicker.swift */; };
 		0916A71A2B0DB5D000B93E18 /* EventTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0916A7192B0DB5D000B93E18 /* EventTable.swift */; };
 		0958B8062BB3CD57009A1220 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0958B8052BB3CD57009A1220 /* Notification.swift */; };
+		0958B8092BB3DC79009A1220 /* ProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0958B8082BB3DC79009A1220 /* ProcessInfo.swift */; };
 		095D707127F386E700248050 /* CalendarSummaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D707027F386E700248050 /* CalendarSummaryApp.swift */; };
 		095D707327F386E700248050 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D707227F386E700248050 /* ContentView.swift */; };
 		095D707527F386EB00248050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 095D707427F386EB00248050 /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		0916A7172B0DB5B700B93E18 /* CalendarDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePicker.swift; sourceTree = "<group>"; };
 		0916A7192B0DB5D000B93E18 /* EventTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTable.swift; sourceTree = "<group>"; };
 		0958B8052BB3CD57009A1220 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		0958B8082BB3DC79009A1220 /* ProcessInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInfo.swift; sourceTree = "<group>"; };
 		095D706D27F386E700248050 /* CalendarSummary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarSummary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		095D707027F386E700248050 /* CalendarSummaryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSummaryApp.swift; sourceTree = "<group>"; };
 		095D707227F386E700248050 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				09A4A7E92BAD9B3900ADBF77 /* String.swift */,
 				09A9A9882BB2B6FA0051AB27 /* AppleScript.swift */,
 				0958B8052BB3CD57009A1220 /* Notification.swift */,
+				0958B8082BB3DC79009A1220 /* ProcessInfo.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				0916A70D2B0DB47000B93E18 /* StandardPeriod.swift in Sources */,
 				0916A71A2B0DB5D000B93E18 /* EventTable.swift in Sources */,
 				09147C802B0DD06A0051DF47 /* EKEventStore.swift in Sources */,
+				0958B8092BB3DC79009A1220 /* ProcessInfo.swift in Sources */,
 				0916A7112B0DB4AD00B93E18 /* EventError.swift in Sources */,
 				0916A70F2B0DB49100B93E18 /* TimePeriod.swift in Sources */,
 				09A4A7E82BAD9B0400ADBF77 /* Branch.swift in Sources */,
