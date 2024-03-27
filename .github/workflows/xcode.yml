@@ -49,11 +49,9 @@ jobs:
           "https://github.com/"
 
       - name: Build and analyze
-        env:
-          TARGET: $(basename "${{ github.repository }}")
         run:
           xcodebuild build analyze
-          -scheme ${{ env.TARGET }}
+          -scheme ${{ github.event.repository.name }}
           -destination platform=macOS
           -showBuildTimingSummary |
           xcpretty && exit ${PIPESTATUS[0]}
