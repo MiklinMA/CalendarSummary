@@ -53,7 +53,7 @@ jobs:
           TARGET: basename ${GITHUB_REPOSITORY}
         run:
           xcodebuild build analyze
-          -scheme $TARGET
+          -scheme ${{ env.TARGET }}
           -destination platform=macOS
           -showBuildTimingSummary |
           xcpretty && exit ${PIPESTATUS[0]}
