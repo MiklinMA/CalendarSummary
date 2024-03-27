@@ -43,11 +43,12 @@ fileprivate extension UserDefaults {
             forName: .EKEventStoreChanged,
             object: nil,
             queue: nil
-        ) { [weak self] _ in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                self.update()
-            }
+        ) { [weak self] info in
+            guard let self,
+                  info.calendarDataChanged == true
+            else { return }
+
+            DispatchQueue.main.async { self.update() }
         }
     }
 
