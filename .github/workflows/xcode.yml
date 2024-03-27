@@ -39,15 +39,6 @@ jobs:
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
 
-      - name: Configure git
-        env:
-          GIT_TOKEN: ${{ secrets.KEYCHAIN_PASSWORD }}
-        run:
-          git config
-          --global
-          url."https://${GIT_TOKEN}:x-oauth-basic@github.com/".insteadOf
-          "https://github.com/"
-
       - name: Build and analyze
         run:
           xcodebuild build analyze
@@ -55,3 +46,29 @@ jobs:
           -destination platform=macOS
           -showBuildTimingSummary |
           xcpretty && exit ${PIPESTATUS[0]}
+
+      - name: Archive
+        run:
+          xcodebuild archive
+          -project "${{ github.event.repository.name }}.xcodeproj"
+          -scheme ${{ github.event.repository.name }}
+          -archivePath "dist/${{ github.event.repository.name }}.xcarchive"
+
+      - name: Export options
+        run: |
+          echo '
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>mac-application</string>
+          </dict>
+          </plist>
+          ' > ExportOptions.plist
+
+      - name: Export
+        run:
+          xcodebuild -exportArchive
+          -archivePath "dist/${{ github.event.repository.name }}.xcarchive"
+          -exportOptionsPlist ExportOptions.plist
