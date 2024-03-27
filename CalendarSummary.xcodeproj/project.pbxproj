@@ -68,6 +68,7 @@
 		0916A7192B0DB5D000B93E18 /* EventTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTable.swift; sourceTree = "<group>"; };
 		0958B8052BB3CD57009A1220 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		0958B8082BB3DC79009A1220 /* ProcessInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInfo.swift; sourceTree = "<group>"; };
+		0958B80A2BB3EB30009A1220 /* xcode.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = xcode.yml; path = .github/workflows/xcode.yml; sourceTree = "<group>"; };
 		095D706D27F386E700248050 /* CalendarSummary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarSummary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		095D707027F386E700248050 /* CalendarSummaryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSummaryApp.swift; sourceTree = "<group>"; };
 		095D707227F386E700248050 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -154,6 +155,7 @@
 		095D706427F386E700248050 = {
 			isa = PBXGroup;
 			children = (
+				0958B80A2BB3EB30009A1220 /* xcode.yml */,
 				095D706F27F386E700248050 /* CalendarSummary */,
 				095D708127F386EB00248050 /* CalendarSummaryTests */,
 				095D708B27F386EB00248050 /* CalendarSummaryUITests */,
@@ -604,7 +606,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCalendarsUsageDescription = AAAAAA;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.olasoft.CalendarSummaryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -624,7 +626,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCalendarsUsageDescription = AAAAAA;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.olasoft.CalendarSummaryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -11,8 +11,13 @@ import Foundation
 let separator: String = ". "
 
 extension String {
-    func split() -> [Substring] {
-        split(separator: separator)
+    func split() -> [String] {
+        if #available(macOS 13.0, *) {
+            split(separator: separator).map { String($0) }
+        }
+        else {
+            components(separatedBy: separator)
+        }
     }
     func trim() -> String {
         self.trimmingCharacters(in: NSCharacterSet.whitespaces)
@@ -25,7 +30,7 @@ extension String {
     }
     mutating func replace(_ string: String, position: Int) {
         var nodes = split()
-        nodes[position] = Substring(string)
+        nodes[position] = string
         self = nodes.joined(separator: separator)
     }
     var dropLastSeparator: String {

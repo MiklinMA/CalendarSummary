@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import Calendar_Summary
+@testable import CalendarSummary
 
 class CalendarSummaryTests: XCTestCase {
 

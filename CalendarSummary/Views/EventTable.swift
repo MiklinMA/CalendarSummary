@@ -93,7 +93,7 @@ extension EventTable { private struct DurationColumn: View {
 
     var body: some View {
         HStack {
-            if !ProcessInfo.processInfo.isSandboxed {
+            if ProcessInfo.processInfo.isSandboxed {
                 Image(systemName: "magnifyingglass")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
