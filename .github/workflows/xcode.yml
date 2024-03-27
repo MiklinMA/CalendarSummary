@@ -50,7 +50,7 @@ jobs:
 
       - name: Build and analyze
         env:
-          TARGET: basename ${GITHUB_REPOSITORY}
+          TARGET: $(basename "${{ github.repository }}")
         run:
           xcodebuild build analyze
           -scheme ${{ env.TARGET }}
