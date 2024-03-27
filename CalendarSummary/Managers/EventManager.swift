@@ -29,7 +29,7 @@ fileprivate extension UserDefaults {
     @Published var calendars: Calendars = Calendars()
     @Published var calendar: Calendar? { didSet {
         defaults.calendar = calendar?.calendarIdentifier ?? ""
-        Logger.manager.debug("Calendar: \(self.defaults.calendar)")
+        Logger.manager.debug("Calendar: \(self.calendar?.title ?? "ALL")")
     }}
     @Published var sortOrder = [KeyPathComparator(\Branch.duration, order: .reverse)] { didSet {
         self.tree.sort(using: sortOrder)
