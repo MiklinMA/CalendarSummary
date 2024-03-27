@@ -74,3 +74,10 @@ jobs:
           -exportOptionsPlist ExportOptions.plist
           -exportPath dist/
           -allowProvisioningUpdates
+
+      - name: Create Disk Image
+        run: |
+          brew install create-dmg
+          rm -f "dist/${{ github.event.repository.name }}.xcarchive"
+          ln -s /Applications dist/
+          create-dmg "${{ github.event.repository.name }}.dmg" dist
