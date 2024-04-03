@@ -14,7 +14,7 @@ So I created an application which helps understanding how much time I spend on e
 <img width="444" alt="image" src="https://github.com/MiklinMA/CalendarSummary/assets/37439522/5d284da3-f615-4e9c-82a7-31d7b45d066f">
 
 
-The application uses 'dot and space' ('. ') as a separator to build hierarchy. For example if you create few events like this
+The application uses 'dot and space' ('. ') as a separator to build hierarchy. For example if you create a few events like this
 * 'Project. Task 1. Subtask 1' duration 60 minutes
 * 'Project. Task 1. Subtask 2' duration 30 minutes
 * 'Project. Task 2. Subtask 1' duration 30 minutes
@@ -33,9 +33,9 @@ You can rename multiple calendar events at once
 
 <img width="444" alt="image" src="https://github.com/MiklinMA/CalendarSummary/assets/37439522/7042d97a-8da9-4856-a332-00449174b2f1">
 
-Any changes on calendar will automatically update an application (EKEventStoreChanged)
+Any changes on calendar will automatically update an application (via EKEventStoreChanged)
 
 
-If you enable access to <a href="CalendarSummary/Extensions/AppleScript.swift">AppleScript</a>, a click on the lens icon will open a calendar with search on the selected item.
+If you enable access to <a href="CalendarSummary/Extensions/AppleScript.swift">AppleScript</a>, a click on a magnifying glass (🔍) icon will open a calendar with search on the selected item.
 
 <img width="512" alt="image" src="https://github.com/MiklinMA/CalendarSummary/assets/37439522/0427a9af-647e-40a6-89ac-61a460a3da68">
