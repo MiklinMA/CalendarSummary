@@ -81,6 +81,7 @@
 		095D708E27F386EB00248050 /* CalendarSummaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSummaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0970CF3027F4EA0C00047920 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		0988B1C42BB2E88500D0AE45 /* CalendarSummary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalendarSummary.entitlements; sourceTree = "<group>"; };
+		09939BBC2BBD67DC00454AA6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		09A4A7E72BAD9B0400ADBF77 /* Branch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
 		09A4A7E92BAD9B3900ADBF77 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		09A9A9882BB2B6FA0051AB27 /* AppleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScript.swift; sourceTree = "<group>"; };
@@ -156,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				0958B80A2BB3EB30009A1220 /* xcode.yml */,
+				09939BBC2BBD67DC00454AA6 /* README.md */,
 				095D706F27F386E700248050 /* CalendarSummary */,
 				095D708127F386EB00248050 /* CalendarSummaryTests */,
 				095D708B27F386EB00248050 /* CalendarSummaryUITests */,

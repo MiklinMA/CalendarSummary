@@ -1,6 +1,6 @@
 # CalendarSummary
 
-This is a personal time management application. It works great with <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">pomodoro</a> technic.
+This is a personal time management application. It works great with <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">pomodoro</a> technique.
 
 ---
 

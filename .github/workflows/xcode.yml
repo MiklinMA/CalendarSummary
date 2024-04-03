@@ -8,6 +8,13 @@ jobs:
     runs-on: macos-14
 
     steps:
+      - name: Extract variables
+        env:
+          JSON: ${{ toJSON(github) }}
+        run: |
+          echo $JSON
+          false
+
       - name: Checkout
         uses: actions/checkout@v4
 
